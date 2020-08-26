@@ -1,0 +1,7 @@
+#${project.name}
+
+${project.description}
+
+##Examples
+
+To provide you with better understanding on some usages of this plugin, you can take a look at the [usage](usage.html) examples.

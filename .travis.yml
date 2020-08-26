@@ -1,0 +1,18 @@
+language: java
+
+jdk:
+ - openjdk8
+
+# cache the build tool's caches
+cache:
+  directories:
+  - $HOME/.m2
+  - $HOME/.sonar/cache
+
+
+addons:
+  sonarcloud:
+    organization: "serendipity-projects"
+
+script:
+  - mvn clean verify sonar:sonar -Dsonar.projectKey=$SONAR
