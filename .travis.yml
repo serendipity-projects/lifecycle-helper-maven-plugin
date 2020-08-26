@@ -9,13 +9,12 @@ cache:
   - $HOME/.m2
   - $HOME/.sonar/cache
 
+install: mvn dependency:resolve
 
 addons:
   sonarcloud:
     organization: "serendipity-projects"
-    token:
-      secure: $SONAR
 
 
 script:
-  - mvn clean verify sonar:sonar
+  - mvn clean verify sonar:sonar -Dsonar.login=$SONAR
