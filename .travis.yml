@@ -17,4 +17,4 @@ addons:
 
 
 script:
-  - mvn clean verify sonar:sonar -Dsonar.login=$SONAR
+  - mvn clean verify sonar:sonar -Dsonar.projectKey=lifecycle-helper-maven-plugin -Dsonar.login=$SONAR
