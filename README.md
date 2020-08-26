@@ -19,7 +19,7 @@ Otherwise you can execute the plugin with the command
 > mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin:execution-plan
 ```
 
-## Brief examples on how to use the Plugin
+## Brief examples on how to use Plugin
 
 ### Display execution plan of a project
 
