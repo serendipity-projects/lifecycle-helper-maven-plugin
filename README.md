@@ -1,5 +1,6 @@
 ![Build status](https://travis-ci.com/serendipity-projects/lifecycle-helper-maven-plugin.svg?branch=master)
 ![Sonar](https://sonarcloud.io/api/project_badges/measure?project=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=alert_status)
+[![codecov](https://codecov.io/gh/serendipity-projects/lifecycle-helper-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/serendipity-projects/lifecycle-helper-maven-plugin)
 
 # Usage
 
