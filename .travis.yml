@@ -18,3 +18,7 @@ addons:
 
 script:
   - mvn clean verify sonar:sonar -Dsonar.projectKey=lifecycle-helper-maven-plugin -Dsonar.login=$SONAR
+
+# Code coverage
+after_success:
+  - bash <(curl -s https://codecov.io/bash
