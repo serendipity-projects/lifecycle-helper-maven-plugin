@@ -8,7 +8,7 @@ import com.google.common.base.Strings;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-class MavenExecutionInfoTest {
+public class MavenExecutionInfoTest {
 
 	@Test
 	void testSetValue_GetValue() throws Exception {
