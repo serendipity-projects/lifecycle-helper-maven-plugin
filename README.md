@@ -16,7 +16,9 @@ and group the execution plan result by lifecycle/phases/plugin/goal.
 ### Quick start
 In your maven project execute the following command:
 
-> mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin
+```
+mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin
+```
 
 Below is an example of a project execution plan with packaging *jar* and no plugins configured (grouped by *lifecycle*)
 
