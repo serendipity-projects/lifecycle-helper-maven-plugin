@@ -6,7 +6,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/it.serendigity.maven.plugins/lifecycle-helper-maven-plugin/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/it.serendigity.maven.plugins/lifecycle-helper-maven-plugin)
 [![Twitter Follow](https://img.shields.io/twitter/follow/SerendigityInfo.svg?style=social)](https://twitter.com/SerendigityInfo)
 
-#Lifecycle Maven Plugin
+# Lifecycle Maven Plugin
 
 A Maven 3.x plugin to inspect the lifecycle of your project.
 The plugin provides goals aimed at helping to inspects your project lifecycle phases and
@@ -15,9 +15,9 @@ and group the execution plan result by lifecycle/phases/plugin/goal.
 
 ![Example](images/example_1.jpg)
 
-###Quick links
+### Quick links
 - Introduction
 - Usage
 - Goals documentation
 
-###Feature requests
+### Feature requests
