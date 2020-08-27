@@ -13,6 +13,13 @@ The plugin provides goals aimed at helping to inspects your project lifecycle ph
 if a plugin-goal is executed and when. It includes the ability to list all plugin-goal mapping to executed phases
 and group the execution plan result by lifecycle/phases/plugin/goal.
 
+### Quick start
+In your maven project execute the following command:
+
+> mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin
+
+Below is an example of a project execution plan with packaging *jar* and no plugins configured (grouped by *lifecycle*)
+
 ![Example](images/example_1.jpg)
 
 ### Quick links
