@@ -3,6 +3,11 @@
 [![codecov](https://codecov.io/gh/serendipity-projects/lifecycle-helper-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/serendipity-projects/lifecycle-helper-maven-plugin)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/it.serendigity.maven.plugins/lifecycle-helper-maven-plugin/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/it.serendigity.maven.plugins/lifecycle-helper-maven-plugin)
+[![Twitter Follow](https://img.shields.io/twitter/follow/SerendigityInfo.svg?style=social)](https://twitter.com/SerendigityInfo)
+
+	<groupId>it.serendigity.maven.plugins</groupId>
+	<artifactId>lifecycle-helper-maven-plugin</artifactId>
 # Usage
 
 
