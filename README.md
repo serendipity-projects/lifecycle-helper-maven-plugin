@@ -1,5 +1,5 @@
 ![Build status](https://travis-ci.com/serendipity-projects/lifecycle-helper-maven-plugin.svg?branch=master)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=serendipity-projects_lifecycle-helper-maven-plugin&metric=alert_status)](https://sonarcloud.io/dashboard?id=serendipity-projects_lifecycle-helper-maven-plugin)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=alert_status)](https://sonarcloud.io/dashboard?id=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin)
 [![codecov](https://codecov.io/gh/serendipity-projects/lifecycle-helper-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/serendipity-projects/lifecycle-helper-maven-plugin)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
