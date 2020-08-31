@@ -141,4 +141,37 @@
 		</plugins>
 	</reporting>
 
+	<profiles>
+		<!-- DEPLOY SITE PROFILE -->
+		<!-- ... LOCAL -->
+		<profile>
+			<id>site-local</id>
+
+			<distributionManagement>
+				<site>
+					<id>deploy-site-local</id>
+					<name>Site deployments</name>
+					<url>file://${site.deploy.rootdir}/${project.artifactId}/</url>
+
+
+				</site>
+			</distributionManagement>
+
+		</profile>
+
+		<!-- ... GITHUB -->
+		<profile>
+			<id>site-github</id>
+
+			<distributionManagement>
+				<site>
+					<id>deploy-site-github</id>
+					<name>Site deploy github</name>
+					<url>scm:git:https://git@github.com/serendipity-projects/${project.artifactId}/</url>
+				</site>
+			</distributionManagement>
+
+		</profile>
+
+	</profiles>
 </project>
