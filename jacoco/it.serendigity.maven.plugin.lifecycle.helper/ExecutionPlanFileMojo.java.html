@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExecutionPlanFileMojo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper</a> &gt; <span class="el_source">ExecutionPlanFileMojo.java</span></div><h1>ExecutionPlanFileMojo.java</h1><pre class="source lang-java linenums">
+package it.serendigity.maven.plugin.lifecycle.helper;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.file.Path;
+
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+
+import it.serendigity.maven.plugin.lifecycle.helper.output.CSVTable;
+import it.serendigity.maven.plugin.lifecycle.helper.utils.TextUtils;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
+
+/**
+ * List execution plan for the current project to an output file.
+ */
+@Mojo(name = &quot;execution-plan-file&quot;, defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true, requiresProject = true)
+<span class="nc" id="L25">public class ExecutionPlanFileMojo extends AbstractLifecycleMojo {</span>
+	private static final String OUTPUT_FILE_NAME = &quot;lifecycle-helper&quot;;
+	private static final String CSV = &quot;CSV&quot;;
+
+<span class="nc" id="L29">	public enum FILE_FORMAT {</span>
+<span class="nc" id="L30">		CSV</span>
+	}
+
+	/**
+	 * Output directory to write the execution plan. The default is the project's
+	 * build directory. For goals that don't require a project the current directory
+	 * will be used.
+	 */
+	@Parameter(property = &quot;lifecycle-helper.outputDirectory&quot;, defaultValue = &quot;${project.build.directory}&quot;)
+	private File paramOutputDirectory;
+
+	/**
+	 * The name of the execution plan file. A file extension matching the configured
+	 * {@code fileFormat} will be added if not specified.
+	 */
+	@Parameter(property = &quot;lifecycle-helper.outputFileName&quot;, defaultValue = OUTPUT_FILE_NAME)
+	private String paramOutputFileName;
+
+	@Parameter(property = &quot;lifecycle-helper.fileFormat&quot;, defaultValue = CSV)
+	private FILE_FORMAT paramFileFormat;
+
+	public void execute() throws MojoExecutionException, MojoFailureException {
+
+<span class="nc" id="L53">		String fileName = TextUtils.normalizeFileNameWithExtension(paramOutputFileName, paramFileFormat.name());</span>
+<span class="nc" id="L54">		validateOutputDirectory(paramOutputDirectory);</span>
+
+<span class="nc" id="L56">		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan(false);</span>
+
+<span class="nc" id="L58">		CSVTable csv = new CSVTable(executionPlanInfo);</span>
+
+<span class="nc" id="L60">		String table = csv.createTable();</span>
+
+		try {
+
+<span class="nc" id="L64">			Path fullPathOutputFile = paramOutputDirectory.toPath().resolve(fileName);</span>
+
+<span class="nc" id="L66">			File fout = fullPathOutputFile.toFile();</span>
+
+<span class="nc bnc" id="L68" title="All 2 branches missed.">			if (fout.exists()) {</span>
+<span class="nc" id="L69">				getLog().error(&quot;Output file name already exists! &quot; + fileName + &quot;(&quot; + paramOutputDirectory + &quot;)&quot;);</span>
+			} else {
+
+<span class="nc" id="L72">				FileOutputStream fos = new FileOutputStream(fout);</span>
+
+<span class="nc" id="L74">				try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos))) {</span>
+<span class="nc" id="L75">					bw.write(table);</span>
+
+				}
+			}
+
+<span class="nc" id="L80">			handleOutput(&quot;\nFile &quot; + fileName + &quot; created in &quot; + paramOutputDirectory + &quot;.&quot;);</span>
+
+<span class="nc" id="L82">		} catch (IOException e) {</span>
+<span class="nc" id="L83">			getLog().error(e);</span>
+<span class="nc" id="L84">		}</span>
+
+<span class="nc" id="L86">	}</span>
+
+	protected void validateOutputDirectory(File dir) {
+<span class="nc bnc" id="L89" title="All 2 branches missed.">		if (!dir.exists()) {</span>
+<span class="nc" id="L90">			dir.mkdirs();</span>
+		}
+<span class="nc" id="L92">	}</span>
+
+	@Override
+	protected String headerParametersString() {
+<span class="nc" id="L96">		String header = super.headerParametersString();</span>
+<span class="nc" id="L97">		header = header + &quot;\nFormat: &quot; + paramFileFormat;</span>
+<span class="nc" id="L98">		header = header + &quot;\nDir: &quot; + paramOutputDirectory;</span>
+<span class="nc" id="L99">		header = header + &quot;\nFile: &quot; + paramOutputFileName;</span>
+
+<span class="nc" id="L101">		return header;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

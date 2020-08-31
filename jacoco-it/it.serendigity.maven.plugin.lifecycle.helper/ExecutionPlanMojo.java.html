@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExecutionPlanMojo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper</a> &gt; <span class="el_source">ExecutionPlanMojo.java</span></div><h1>ExecutionPlanMojo.java</h1><pre class="source lang-java linenums">
+package it.serendigity.maven.plugin.lifecycle.helper;
+
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+
+import it.serendigity.maven.plugin.lifecycle.helper.output.TxtTable;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionAttribute;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
+
+/**
+ * List execution plan for the current project.
+ */
+@Mojo(name = &quot;execution-plan&quot;, defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true, requiresProject = true)
+<span class="fc" id="L18">public class ExecutionPlanMojo extends AbstractLifecycleMojo {</span>
+
+	/**
+	 * If enabled allows you to group execution plan result by the orderBy param,
+	 * any value of {@linkplain MavenExecutionAttribute}. It's valid only for table
+	 * text output result. Order by {@linkplain MavenExecutionAttribute#PLAN_ORDER}
+	 * is not grouped by.
+	 **/
+	@Parameter(property = &quot;lifecycle-helper.groupby&quot;, defaultValue = &quot;false&quot;)
+	private boolean paramGroupBy;
+
+	/**
+	 * Allows you to group the execution plan result by any value of
+	 * {@linkplain MavenExecutionAttribute} .
+	 **/
+	@Parameter(property = &quot;lifecycle-helper.orderby&quot;, defaultValue = &quot;PLAN_ORDER&quot;)
+	private MavenExecutionAttribute paramOrderBy;
+
+	//
+	private MavenExecutionAttribute orderByToElaborate;
+
+	public void execute() throws MojoExecutionException, MojoFailureException {
+<span class="fc" id="L40">		setOrderByToElaborate(getParamOrderBy());</span>
+
+<span class="fc" id="L42">		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan(true);</span>
+
+<span class="fc" id="L44">		executionPlanInfo.sort(getOrderByToElaborate());</span>
+
+<span class="fc" id="L46">		TxtTable textTable = new TxtTable(executionPlanInfo,getOrderByToElaborate(), getParamGroupBy());</span>
+
+<span class="fc" id="L48">		String table = textTable.createTable();</span>
+
+<span class="fc" id="L50">		handleOutput(table);</span>
+<span class="fc" id="L51">	}</span>
+
+	@Override
+	protected String headerParametersString() {
+<span class="fc" id="L55">		String header = super.headerParametersString();</span>
+<span class="fc" id="L56">		header = header + &quot;\nOrder by: &quot; + getOrderByToElaborate();</span>
+<span class="fc" id="L57">		header = header + &quot;\nGroup by: &quot; + getParamGroupBy();</span>
+
+<span class="fc" id="L59">		return header;</span>
+	}
+
+	protected MavenExecutionAttribute getParamOrderBy() {
+
+<span class="fc" id="L64">		return paramOrderBy;</span>
+	}
+
+	protected boolean getParamGroupBy() {
+
+<span class="fc" id="L69">		return paramGroupBy;</span>
+	}
+
+	protected void setOrderByToElaborate(MavenExecutionAttribute orderByToElaborate) {
+<span class="fc" id="L73">		this.orderByToElaborate = orderByToElaborate;</span>
+<span class="fc" id="L74">	}</span>
+
+	protected MavenExecutionAttribute getOrderByToElaborate() {
+<span class="fc" id="L77">		return orderByToElaborate;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

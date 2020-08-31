@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MavenExecutionComparator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper.vo</a> &gt; <span class="el_source">MavenExecutionComparator.java</span></div><h1>MavenExecutionComparator.java</h1><pre class="source lang-java linenums">package it.serendigity.maven.plugin.lifecycle.helper.vo;
+
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.Set;
+
+import org.apache.commons.lang3.builder.CompareToBuilder;
+
+/**
+ * Order a {@link MavenExecutionInfo} by {@link MavenExecutionAttribute}
+ *
+ */
+public class MavenExecutionComparator implements Comparator&lt;MavenExecutionInfo&gt; {
+
+	private final MavenExecutionAttribute orderAttribute;
+
+<span class="fc" id="L17">	public MavenExecutionComparator( MavenExecutionAttribute orderAttribute ) {</span>
+<span class="fc" id="L18">		this.orderAttribute = orderAttribute;</span>
+<span class="fc" id="L19">	}</span>
+
+	@Override
+	public int compare( MavenExecutionInfo o1, MavenExecutionInfo o2 ) {
+
+<span class="fc" id="L24">		MavenExecutionAttribute orderAttr = getOrderAttribute();</span>
+
+<span class="fc" id="L26">		CompareToBuilder builder = new CompareToBuilder();</span>
+
+<span class="fc" id="L28">		Set&lt;MavenExecutionAttribute&gt; excludes = EnumSet.noneOf( MavenExecutionAttribute.class );</span>
+
+		// Order by orderAttribute
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">		if ( orderAttr != null ) {</span>
+<span class="fc" id="L32">			builder.append( o1.getValue( orderAttr ), o2.getValue( orderAttr ) );</span>
+<span class="fc" id="L33">			excludes.add( orderAttr );</span>
+		}
+
+		// Always second order with ExecutionOrder to preserve execution plan order
+<span class="pc bpc" id="L37" title="2 of 4 branches missed.">		if ( orderAttr == null || orderAttr != MavenExecutionAttribute.PLAN_ORDER ) {</span>
+<span class="nc" id="L38">			builder.append( o1.getExecutionOrder(), o2.getExecutionOrder() );</span>
+<span class="nc" id="L39">			excludes.add( MavenExecutionAttribute.PLAN_ORDER );</span>
+		}
+<span class="fc" id="L41">		MavenExecutionAttribute[] excludesArray = excludes.toArray( new MavenExecutionAttribute[excludes.size()] );</span>
+
+		// Add other fields
+<span class="fc" id="L44">		Set&lt;MavenExecutionAttribute&gt; complementOf = MavenExecutionAttribute.complementOf( excludesArray );</span>
+
+<span class="pc bpc" id="L46" title="2 of 4 branches missed.">		if ( complementOf != null &amp;&amp; !complementOf.isEmpty() ) {</span>
+<span class="fc" id="L47">			complementOf.stream().forEach( p -&gt; builder.append( o1.getValue( p ), o2.getValue( p ) ) );</span>
+
+		}
+
+<span class="fc" id="L51">		return builder.toComparison();</span>
+
+	}
+
+	protected MavenExecutionAttribute getOrderAttribute() {
+<span class="fc" id="L56">		return orderAttribute;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

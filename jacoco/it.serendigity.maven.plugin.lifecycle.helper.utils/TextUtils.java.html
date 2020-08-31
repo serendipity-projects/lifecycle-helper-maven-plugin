@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TextUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper.utils</a> &gt; <span class="el_source">TextUtils.java</span></div><h1>TextUtils.java</h1><pre class="source lang-java linenums">package it.serendigity.maven.plugin.lifecycle.helper.utils;
+
+public class TextUtils {
+
+	public static final String STRING_PLACEHOLDER = &quot;%s&quot;;
+
+	private TextUtils() {
+
+	}
+
+	public static String leftJustify( Character leftSeparator, Character rightSeparator, String text, int width ) {
+
+<span class="fc" id="L13">		return justify( leftSeparator, rightSeparator, text, -width );</span>
+	}
+
+	public static String rightJustify( Character leftSeparator, Character rightSeparator, String text, int width ) {
+
+<span class="fc" id="L18">		return justify( leftSeparator, rightSeparator, text, width );</span>
+	}
+
+	public static String justifyFormat( int width ) {
+
+<span class="fc" id="L23">		return justifyFormat( null, null, width );</span>
+
+	}
+
+	public static String justifyFormat( Character leftSeparator, Character rightSeparator, int width ) {
+
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">		String l = leftSeparator != null ? leftSeparator.toString() : &quot;&quot;;</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">		String r = rightSeparator != null ? rightSeparator.toString() : &quot;&quot;;</span>
+
+<span class="fc" id="L32">		return l + &quot;%&quot; + width + &quot;s&quot; + r;</span>
+
+	}
+
+	protected static String justify( Character leftSeparator, Character rightSeparator, String text, int width ) {
+
+<span class="fc" id="L38">		return String.format( justifyFormat( leftSeparator, rightSeparator, width ), text );</span>
+	}
+
+	/**
+	 * Normalize file name with extension {@code fileFormat}
+	 *
+	 * @param fileName name of the file
+	 * @param fileFormat the format of the file (extension)
+	 * @return the fileName with extension
+	 */
+	public static String normalizeFileNameWithExtension( String fileName, String fileFormat ) {
+
+<span class="fc" id="L50">		String result = fileName;</span>
+<span class="pc bpc" id="L51" title="2 of 4 branches missed.">		if ( fileFormat != null &amp;&amp; !fileName.endsWith( fileFormat ) ) {</span>
+
+<span class="fc" id="L53">			result += &quot;.&quot; + fileFormat;</span>
+
+		}
+
+<span class="fc" id="L57">		return result;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

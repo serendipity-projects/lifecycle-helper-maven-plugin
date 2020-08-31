@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TxtTable.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper.output</a> &gt; <span class="el_source">TxtTable.java</span></div><h1>TxtTable.java</h1><pre class="source lang-java linenums">package it.serendigity.maven.plugin.lifecycle.helper.output;
+
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.Set;
+
+import org.apache.maven.shared.utils.logging.MessageUtils;
+
+import com.google.common.base.Strings;
+
+import it.serendigity.maven.plugin.lifecycle.helper.utils.TextUtils;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionAttribute;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionInfo;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
+
+public class TxtTable extends TxtOutput {
+
+	private boolean groupByAttribute;
+	private MavenExecutionAttribute orderByColumn;
+
+	private int rowLength;
+
+	private static final String COLUMN_SEPARATOR = &quot; | &quot;;
+<span class="fc" id="L24">	private static final int COLUMN_SEPARATOR_LENGTH = COLUMN_SEPARATOR.length();</span>
+	private static final int DEFAULT_COLUMN_WIDTH = 50;
+
+	public TxtTable(MavenExecutionPlanInfo executionPlanInfo, MavenExecutionAttribute orderByColumn, boolean groupByAttribute) {
+<span class="fc" id="L28">		super(executionPlanInfo);</span>
+
+<span class="fc" id="L30">		this.orderByColumn =orderByColumn;</span>
+<span class="fc" id="L31">		this.groupByAttribute = groupByAttribute;</span>
+<span class="fc" id="L32">	}</span>
+
+	@Override
+	protected String createRowFormat() {
+<span class="fc" id="L36">		StringBuilder builder = new StringBuilder();</span>
+
+<span class="fc" id="L38">		int width = 0;</span>
+
+<span class="fc bfc" id="L40" title="All 2 branches covered.">		for (MavenExecutionAttribute mavenExecutionAttribute : getColumns()) {</span>
+
+<span class="fc" id="L42">			builder.append(COLUMN_SEPARATOR);</span>
+
+<span class="fc" id="L44">			int maxStringLength = DEFAULT_COLUMN_WIDTH;</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">			if (getSummary() != null) {</span>
+<span class="fc" id="L46">				maxStringLength = Math.max(getSummary().getMaxStringLength(mavenExecutionAttribute),</span>
+<span class="fc" id="L47">						getHeaderTitle(mavenExecutionAttribute).length());</span>
+
+			}
+<span class="fc" id="L50">			builder.append(TextUtils.justifyFormat(-maxStringLength));</span>
+
+<span class="fc" id="L52">			width = width + maxStringLength + COLUMN_SEPARATOR_LENGTH;</span>
+
+<span class="fc" id="L54">		}</span>
+<span class="fc" id="L55">		builder.append(COLUMN_SEPARATOR);</span>
+<span class="fc" id="L56">		width = width + COLUMN_SEPARATOR_LENGTH;</span>
+
+<span class="fc" id="L58">		setRowLength(width);</span>
+
+<span class="fc" id="L60">		return builder.toString();</span>
+	}
+
+	protected boolean isGroupByAttribute() {
+<span class="fc" id="L64">		return groupByAttribute;</span>
+	}
+
+	public String createTable()
+
+	{
+<span class="fc" id="L70">		StringBuilder builder = new StringBuilder();</span>
+
+<span class="fc" id="L72">		MavenExecutionPlanInfo info = getExecutionPlanInfo();</span>
+
+<span class="pc bpc" id="L74" title="2 of 4 branches missed.">		if (info.getMavenExecutionsInfo() != null &amp;&amp; !info.getMavenExecutionsInfo().isEmpty()) {</span>
+
+<span class="fc" id="L76">			builder.append(headerRows());</span>
+
+<span class="fc" id="L78">			String oldGroup = &quot;&quot;;</span>
+<span class="fc" id="L79">			boolean columnGroupByEnabled = getOrderByColumn().isGroupByEnabled();</span>
+
+<span class="fc" id="L81">			Collection&lt;MavenExecutionInfo&gt; mavenExecutionsInfo = info.getMavenExecutionsInfo();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">			for (MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo) {</span>
+
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">				String currentGroup = isGroupByColumnSelected()</span>
+<span class="pc" id="L85">						? String.valueOf(mavenExecutionInfo.getValue(getOrderByColumn()))</span>
+						: &quot;&quot;;
+
+<span class="pc bpc" id="L88" title="5 of 6 branches missed.">				if (columnGroupByEnabled &amp;&amp; currentGroup != null &amp;&amp; !currentGroup.equals(oldGroup)) {</span>
+<span class="nc" id="L89">					builder.append(newLineSeparator());</span>
+
+<span class="nc" id="L91">					builder.append(newLineSeparator())</span>
+<span class="nc" id="L92">							.append(titleLine(getOrderByColumn().getDescription() + &quot;: &quot; + currentGroup));</span>
+
+				}
+
+<span class="fc" id="L96">				builder.append(newLineSeparator());</span>
+<span class="fc" id="L97">				builder.append(tableRow(mavenExecutionInfo));</span>
+
+<span class="fc" id="L99">				oldGroup = currentGroup;</span>
+<span class="fc" id="L100">			}</span>
+		}
+
+<span class="fc" id="L103">		return builder.toString();</span>
+
+	}
+
+	@Override
+	protected Set&lt;MavenExecutionAttribute&gt; createColumns() {
+<span class="fc" id="L109">		Set&lt;MavenExecutionAttribute&gt; result = null;</span>
+
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">		if (isGroupByColumnSelected()) {</span>
+<span class="nc" id="L112">			result = MavenExecutionAttribute.complementOf(getOrderByColumn());</span>
+		} else {
+
+<span class="fc" id="L115">			result = EnumSet.allOf(MavenExecutionAttribute.class);</span>
+
+		}
+<span class="fc" id="L118">		return result;</span>
+	}
+
+	public MavenExecutionAttribute getOrderByColumn() {
+
+<span class="fc" id="L123">		return orderByColumn;</span>
+	}
+
+	public boolean isGroupByColumnSelected() {
+
+<span class="pc bpc" id="L128" title="2 of 6 branches missed.">		return isGroupByAttribute() &amp;&amp; getOrderByColumn() != null &amp;&amp; getOrderByColumn().isGroupByEnabled();</span>
+	}
+
+	protected String headerRows() {
+<span class="fc" id="L132">		StringBuilder output = new StringBuilder().append(headerRowSeparator())</span>
+
+<span class="fc" id="L134">				.append(newLineSeparator()).append(headerTitle())</span>
+
+<span class="fc" id="L136">				.append(headerRowSeparator());</span>
+
+<span class="fc" id="L138">		return output.toString();</span>
+	}
+
+	@Override
+	protected String headerTitle() {
+
+<span class="fc" id="L144">		Object[] columnTitle = new String[getColumns().size()];</span>
+
+<span class="fc" id="L146">		int count = 0;</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">		for (MavenExecutionAttribute mavenExecutionAttribute : getColumns()) {</span>
+<span class="fc" id="L148">			columnTitle[count] = getHeaderTitle(mavenExecutionAttribute);</span>
+<span class="fc" id="L149">			count++;</span>
+<span class="fc" id="L150">		}</span>
+
+<span class="fc" id="L152">		return String.format(getRowFormat(), columnTitle);</span>
+	}
+
+	private String headerRowSeparator() {
+<span class="fc" id="L156">		StringBuilder output = new StringBuilder().append(newLineSeparator()).append(headerSeparator());</span>
+
+<span class="fc" id="L158">		return output.toString();</span>
+	}
+
+	private String headerSeparator() {
+<span class="fc" id="L162">		return Strings.repeat(&quot;-&quot;, getRowLength());</span>
+	}
+
+	private void setRowLength(int rowLength) {
+<span class="fc" id="L166">		this.rowLength = rowLength;</span>
+<span class="fc" id="L167">	}</span>
+
+	public int getRowLength() {
+<span class="fc" id="L170">		return rowLength;</span>
+	}
+
+	protected String titleLine(String key) {
+<span class="nc" id="L174">		return MessageUtils.buffer().strong(key) + &quot; &quot; + Strings.repeat(&quot;.&quot;, getRowLength() - key.length());</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
