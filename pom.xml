@@ -22,6 +22,8 @@
     and group the execution plan result by lifecycle/phases/plugin/goal.
     </description>
 
+	<url>https://serendipity-projects.github.io/${project.artifactId}</url>
+
 	<dependencies>
 
 		<dependency>
