@@ -8,7 +8,7 @@
 [![Reliability Status](https://sonarcloud.io/api/project_badges/measure?project=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=reliability_rating)](https://sonarcloud.io/component_measures?id=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=reliability_rating)
 [![Coverage ](https://sonarcloud.io/api/project_badges/measure?project=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=coverage)](https://sonarcloud.io/component_measures?id=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=coverage)
 [![Vulnerability](https://sonarcloud.io/api/project_badges/measure?project=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=vulnerabilities)](https://sonarcloud.io/component_measures?id=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=vulnerabilities)
-[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=ncloc)](https://https://sonarcloud.io/component_measures?id=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=ncloc)
+[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=ncloc)](https://sonarcloud.io/component_measures?id=it.serendigity.maven.plugins%3Alifecycle-helper-maven-plugin&metric=ncloc)
 
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/SerendigityInfo.svg?style=social)](https://twitter.com/SerendigityInfo)
