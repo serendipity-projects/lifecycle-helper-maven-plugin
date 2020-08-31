@@ -61,4 +61,13 @@ class TextUtilsTest {
 		assertThat( normalized ).isEqualToIgnoringCase( fileName + "." + ext );
 	}
 
+	@Test
+	void testJustifyFormat_withSeparator() throws Exception {
+		int width = 10;
+		char sep1 = '|';
+		char sep2 = ';';
+		String format = TextUtils.justifyFormat( sep1, sep2, width );
+		assertThat( format ).contains( String.valueOf( sep1 ), String.valueOf( sep2 ), String.valueOf( width ) );
+	}
+
 }
