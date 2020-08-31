@@ -107,19 +107,14 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 
 		List<String> result = null;
 
-		if ( getParamFilterPlugins() != null ) {
+		for ( String f : getParamFilterPlugins() ) {
 
-			// Safe null value
-			for ( String f : getParamFilterPlugins() ) {
-
-				if ( result == null ) {
-					result = new ArrayList<>();
-				}
-				if ( f != null ) {
-					result.add( f.trim() );
-				}
+			if ( result == null ) {
+				result = new ArrayList<>();
 			}
-
+			if ( f != null ) {
+				result.add( f.trim() );
+			}
 		}
 
 		return result;
