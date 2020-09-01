@@ -45,6 +45,7 @@ You can order and group and order the execution plan result by any column of the
 Allowed values for *orderby* are the values of *MavenExecutionAttribute* enum.
 
 Following two examples with run phases parameter *compile*:
+
 - group by true /order by LIFECYCLE
 - group by true /order by PLUGIN
 
