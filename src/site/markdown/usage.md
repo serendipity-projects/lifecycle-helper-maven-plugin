@@ -46,7 +46,8 @@ Allowed values for *orderby* are the values of *MavenExecutionAttribute* enum.
 
 Following two examples with run phases parameter *compile*:
 
-- group by true /order by LIFECYCLE
+- group by true /order by LIFECYCLE (the screenshot was taken from WINDOWS OS to show the differences with MAC OS
+)
 - group by true /order by PLUGIN
 
 ```
