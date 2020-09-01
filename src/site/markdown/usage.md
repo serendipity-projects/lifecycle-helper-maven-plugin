@@ -19,6 +19,8 @@ Otherwise you can execute the plugin with the command
 ```
 
 ## Brief examples on how to use the Plugin
+Note: For all the examples we will use the pom from the integration test sample project
+[View pom](https://github.com/serendipity-projects/lifecycle-helper-maven-plugin/blob/master/src/it/execution-plan/pom.xml)
 
 ### Display execution plan of a project
 
