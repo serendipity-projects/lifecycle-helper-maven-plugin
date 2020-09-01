@@ -65,6 +65,8 @@ Following two examples with run phases parameter *compile*:
 
 ![Example](images/example_execution_plan_group_phase.jpg)
 
+### Filter execution plan by plugins
+
 Moreover it's possible to filter the result to a specific plugin filling the parameter *lifecycle-helper.filter.plugins*.
 
 ```
