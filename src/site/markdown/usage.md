@@ -24,7 +24,7 @@ Note: For all the examples we will use the pom from the integration test sample 
 
 ### Display execution plan of a project
 
-If you run execution-plan goal without arguments all maven lifecycle/phases are displayed in the execution plan order grouped by Lifecycle.
+If you run execution-plan goal without arguments all maven lifecycle/phases are displayed in the execution plan order.
 
 ```
 > mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin:execution-plan
