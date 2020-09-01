@@ -1,10 +1,10 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,AbstractLifecycleMojo,237,11,19,1,44,4,19,1,9,1
+Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,AbstractLifecycleMojo,235,11,17,1,43,4,18,1,9,1
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,ExecutionPlanMojo,73,0,0,0,17,0,7,0,7,0
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,ExecutionPlanFileMojo,147,0,4,0,26,0,6,0,4,0
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,ExecutionPlanFileMojo.FILE_FORMAT,14,0,0,0,2,0,1,0,1,0
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper.utils,MavenUtils,12,0,0,0,2,0,2,0,2,0
-Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper.utils,TextUtils,6,74,4,4,0,11,4,6,0,6
+Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper.utils,TextUtils,0,80,2,6,0,11,2,8,0,6
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper.vo,MavenExecutionSummary,0,66,0,6,0,14,0,7,0,4
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper.vo,MavenExecutionInfo,66,254,3,19,10,94,5,36,2,22
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper.vo,MavenExecutionComparator,11,74,5,5,2,16,5,4,0,4
