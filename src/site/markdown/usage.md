@@ -75,8 +75,9 @@ mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin:execution-plan -D
 
 ![Example](images/example_execution_plan_filter_plugin.jpg)
 
-## How to use the Plugin from POM
-Configure the plugin within the POM in order to execute it in the maven lifecycle phase:
+## How to use the plugin goals in your POM
+
+To use the plugin goals in your POM configure it the *plugins* of the POM.
 
 Below is a configuration example with *execution-plan* goal configured in the *validate* phase.
 
@@ -108,11 +109,11 @@ Below is a configuration example with *execution-plan* goal configured in the *v
 The parameter *paramForceTasksFromSession* execute the tasks of a maven session and disable the parameter *paramRunTasks* in order to
 list the execution-plan of the current maven tasks run from command line.
 
-After configured the pom.xml if you the following command:
+After configured the pom.xml if you run the following command:
 ```
 mvn clean package
 ```
 
-This is the output:
+This is an example of the output:
 
 ![Example](images/example_execution_plan_from_session.jpg)
