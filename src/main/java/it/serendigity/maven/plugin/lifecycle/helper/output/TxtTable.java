@@ -82,7 +82,7 @@ public class TxtTable extends TxtOutput {
 			for (MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo) {
 
 				String currentGroup = isGroupByColumnSelected()
-						? String.valueOf(mavenExecutionInfo.getValue(getOrderByColumn()))
+						? String.valueOf(mavenExecutionInfo.getValueOrEmpty( getOrderByColumn()))
 						: "";
 
 				if (columnGroupByEnabled && currentGroup != null && !currentGroup.equals(oldGroup)) {

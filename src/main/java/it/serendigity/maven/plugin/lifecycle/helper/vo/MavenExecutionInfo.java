@@ -1,5 +1,7 @@
 package it.serendigity.maven.plugin.lifecycle.helper.vo;
 
+import java.util.Objects;
+
 import javax.annotation.Generated;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -39,7 +41,7 @@ public final class MavenExecutionInfo {
 	public String getPluginArtifactId() {
 		return pluginArtifactId;
 	}
-	
+
 	public String getPluginVersion() {
 		return pluginVersion;
 	}
@@ -125,12 +127,11 @@ public final class MavenExecutionInfo {
 			this.pluginArtifactId = pluginArtifactId;
 			return this;
 		}
-		
+
 		public Builder withPluginVersion( String pluginVersion ) {
 			this.pluginVersion = pluginVersion;
 			return this;
 		}
-
 
 		public Builder withPluginExecutionId( String pluginExecutionId ) {
 			this.pluginExecutionId = pluginExecutionId;
@@ -147,6 +148,23 @@ public final class MavenExecutionInfo {
 		}
 	}
 
+	/**
+	 * Retrieve value of the attribute {@code mavenExecutionAttribute}.
+	 * The null value are converted in empty value
+	 *
+	 * @param mavenExecutionAttribute the attribute
+	 * @return the value of the attribute or empty string otherwise
+	 */
+	public Object getValueOrEmpty( MavenExecutionAttribute mavenExecutionAttribute ) {
+		return Objects.toString( getValue( mavenExecutionAttribute ), "" );
+	}
+
+	/**
+	 * Retrieve value of the attribute {@code mavenExecutionAttribute}
+	 *
+	 * @param mavenExecutionAttribute the attribute
+	 * @return the value of the attribute or empty string otherwise
+	 */
 	public Object getValue( MavenExecutionAttribute mavenExecutionAttribute ) {
 
 		Object result = null;
@@ -169,7 +187,7 @@ public final class MavenExecutionInfo {
 			case PLUGIN_VERSION:
 				result = getPluginVersion();
 				break;
-				
+
 			case PLUGIN_EXECUTION_ID:
 				result = getPluginExecutionId();
 				break;
@@ -214,7 +232,7 @@ public final class MavenExecutionInfo {
 				case PLUGIN:
 					setPluginArtifactId( s );
 					break;
-					
+
 				case PLUGIN_VERSION:
 					setPluginVersion( s );
 					break;
@@ -252,6 +270,7 @@ public final class MavenExecutionInfo {
 	public void setPluginVersion( String pluginVersion ) {
 		this.pluginVersion = pluginVersion;
 	}
+
 	public void setPluginExecutionId( String pluginExecutionId ) {
 		this.pluginExecutionId = pluginExecutionId;
 	}
@@ -260,7 +279,6 @@ public final class MavenExecutionInfo {
 		this.pluginGoal = pluginGoal;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "MavenExecutionInfo [executionOrder=" + executionOrder + ", lifecycle=" + lifecycle + ", phase=" + phase

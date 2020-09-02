@@ -33,11 +33,11 @@ If you run execution-plan goal without arguments all maven lifecycle/phases are 
 ![Example](images/example_execution_plan.jpg)
 
 
-It is possible to indicate a specific lifecycle phase/s with parameter *lifecycle-helper.phases*.
+It is possible to indicate a specific lifecycle tasks with parameter *lifecycle-helper.tasks*.
 For example if you want to list the execution plan only for *clean* and *compile* phases.
 
 ```
-> mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin:execution-plan -Dlifecycle-helper.phases=clean,compile
+> mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin:execution-plan -Dlifecycle-helper.tasks=clean,compile
 ```
 ![Example](images/example_execution_plan_phases.jpg)
 

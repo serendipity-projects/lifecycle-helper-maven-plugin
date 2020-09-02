@@ -9,12 +9,13 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionSummary;
 
 public abstract class TxtOutput {
-	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
+	private static final String LINE_SEPARATOR = System.getProperty( "line.separator" );
 	private Set<MavenExecutionAttribute> columns;
 	private String rowFormat;
 	private MavenExecutionPlanInfo executionPlanInfo;
 
-	public TxtOutput(MavenExecutionPlanInfo executionPlanInfo) {
+	public TxtOutput( MavenExecutionPlanInfo executionPlanInfo ) {
 		super();
 
 		this.executionPlanInfo = executionPlanInfo;
@@ -26,7 +27,7 @@ public abstract class TxtOutput {
 
 	protected abstract String createRowFormat();
 
-	protected String getHeaderTitle(MavenExecutionAttribute mavenExecutionAttribute) {
+	protected String getHeaderTitle( MavenExecutionAttribute mavenExecutionAttribute ) {
 		return mavenExecutionAttribute.getShortDescription().toUpperCase();
 	}
 
@@ -36,7 +37,7 @@ public abstract class TxtOutput {
 
 	protected Set<MavenExecutionAttribute> createColumns() {
 
-		return EnumSet.allOf(MavenExecutionAttribute.class);
+		return EnumSet.allOf( MavenExecutionAttribute.class );
 	}
 
 	protected String headerTitle() {
@@ -44,25 +45,25 @@ public abstract class TxtOutput {
 		Object[] columnTitle = new String[getColumns().size()];
 
 		int count = 0;
-		for (MavenExecutionAttribute mavenExecutionAttribute : getColumns()) {
-			columnTitle[count] = getHeaderTitle(mavenExecutionAttribute);
+		for ( MavenExecutionAttribute mavenExecutionAttribute : getColumns() ) {
+			columnTitle[count] = getHeaderTitle( mavenExecutionAttribute );
 			count++;
 		}
 
-		return String.format(getRowFormat(), columnTitle);
+		return String.format( getRowFormat(), columnTitle );
 	}
 
-	protected String tableRow(MavenExecutionInfo info) {
+	protected String tableRow( MavenExecutionInfo info ) {
 
 		Object[] rowValues = new Object[getColumns().size()];
 
 		int count = 0;
-		for (MavenExecutionAttribute mavenExecutionAttribute : getColumns()) {
-			rowValues[count] = info.getValue(mavenExecutionAttribute);
+		for ( MavenExecutionAttribute mavenExecutionAttribute : getColumns() ) {
+			rowValues[count] = info.getValueOrEmpty( mavenExecutionAttribute );
 			count++;
 		}
 
-		return String.format(getRowFormat(), rowValues);
+		return String.format( getRowFormat(), rowValues );
 
 	}
 
@@ -73,7 +74,7 @@ public abstract class TxtOutput {
 	public static String newLineSeparator() {
 		return LINE_SEPARATOR;
 	}
-	
+
 	public String getRowFormat() {
 		return rowFormat;
 	}
