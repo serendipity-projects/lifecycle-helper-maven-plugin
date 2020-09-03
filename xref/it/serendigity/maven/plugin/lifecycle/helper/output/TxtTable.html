@@ -90,7 +90,7 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  			<strong class="jxr_keyword">for</strong> (<a name="MavenExecutionInfo" href="../../../../../../../it/serendigity/maven/plugin/lifecycle/helper/vo/MavenExecutionInfo.html#MavenExecutionInfo">MavenExecutionInfo</a> mavenExecutionInfo : mavenExecutionsInfo) {
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  				String currentGroup = isGroupByColumnSelected()
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  						? String.valueOf(mavenExecutionInfo.getValue(getOrderByColumn()))
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  						? String.valueOf(mavenExecutionInfo.getValueOrEmpty( getOrderByColumn()))
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  						: <span class="jxr_string">""</span>;
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  				<strong class="jxr_keyword">if</strong> (columnGroupByEnabled &amp;&amp; currentGroup != <strong class="jxr_keyword">null</strong> &amp;&amp; !currentGroup.equals(oldGroup)) {

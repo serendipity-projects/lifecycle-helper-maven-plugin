@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MavenUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper.utils</a> &gt; <span class="el_source">MavenUtils.java</span></div><h1>MavenUtils.java</h1><pre class="source lang-java linenums">package it.serendigity.maven.plugin.lifecycle.helper.utils;
 
 import org.apache.maven.lifecycle.DefaultLifecycles;
+import org.apache.maven.lifecycle.Lifecycle;
 import org.apache.maven.plugin.MojoExecution;
 
 public class MavenUtils {
@@ -10,11 +11,19 @@ public class MavenUtils {
 	}
 
 	public static String retrieveLifecycle( String phase, DefaultLifecycles defaultLifecycles ) {
-<span class="nc" id="L13">		return defaultLifecycles.getPhaseToLifecycleMap().get( phase ).getId();</span>
+<span class="nc" id="L14">		String result = null;</span>
+<span class="nc" id="L15">		Lifecycle lifecycle = defaultLifecycles.getPhaseToLifecycleMap().get( phase );</span>
+
+<span class="nc bnc" id="L17" title="All 2 branches missed.">		if ( lifecycle != null ) {</span>
+<span class="nc" id="L18">			result = lifecycle.getId();</span>
+		}
+
+<span class="nc" id="L21">		return result;</span>
 	}
 
 	public static String retrieveLifecycle( MojoExecution mojoExecution, DefaultLifecycles defaultLifecycles ) {
-<span class="nc" id="L17">		return retrieveLifecycle( mojoExecution.getLifecyclePhase(), defaultLifecycles );</span>
+<span class="nc" id="L25">		return retrieveLifecycle( mojoExecution.getLifecyclePhase(), defaultLifecycles );</span>
 	}
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

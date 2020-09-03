@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MavenExecutionInfo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper.vo</a> &gt; <span class="el_source">MavenExecutionInfo.java</span></div><h1>MavenExecutionInfo.java</h1><pre class="source lang-java linenums">package it.serendigity.maven.plugin.lifecycle.helper.vo;
 
+import java.util.Objects;
+
 import javax.annotation.Generated;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -21,63 +23,63 @@ public final class MavenExecutionInfo {
 	private String pluginGoal;
 
 	public MavenExecutionInfo() {
-<span class="nc" id="L24">		super();</span>
-<span class="nc" id="L25">	}</span>
+<span class="nc" id="L26">		super();</span>
+<span class="nc" id="L27">	}</span>
 
 	public int getExecutionOrder() {
-<span class="fc" id="L28">		return executionOrder;</span>
+<span class="fc" id="L30">		return executionOrder;</span>
 	}
 
 	public String getLifecycle() {
-<span class="fc" id="L32">		return lifecycle;</span>
+<span class="fc" id="L34">		return lifecycle;</span>
 	}
 
 	public String getPhase() {
-<span class="fc" id="L36">		return phase;</span>
+<span class="fc" id="L38">		return phase;</span>
 	}
 
 	public String getPluginArtifactId() {
-<span class="fc" id="L40">		return pluginArtifactId;</span>
+<span class="fc" id="L42">		return pluginArtifactId;</span>
 	}
-	
+
 	public String getPluginVersion() {
-<span class="fc" id="L44">		return pluginVersion;</span>
+<span class="fc" id="L46">		return pluginVersion;</span>
 	}
 
 	public String getPluginExecutionId() {
-<span class="fc" id="L48">		return pluginExecutionId;</span>
+<span class="fc" id="L50">		return pluginExecutionId;</span>
 	}
 
 	public String getPluginGoal() {
-<span class="fc" id="L52">		return pluginGoal;</span>
+<span class="fc" id="L54">		return pluginGoal;</span>
 	}
 
 	public static MavenExecutionInfo from( int order, MojoExecution mojoExecution, DefaultLifecycles defaultLifecycles ) {
 
-<span class="fc" id="L57">		return MavenExecutionInfo.builder()</span>
-<span class="fc" id="L58">				.withExecutionOrder( order )</span>
-<span class="fc" id="L59">				.withLifecycle( MavenUtils.retrieveLifecycle( mojoExecution, defaultLifecycles ) )</span>
-<span class="fc" id="L60">				.withPhase( mojoExecution.getLifecyclePhase() )</span>
-<span class="fc" id="L61">				.withPluginArtifactId( mojoExecution.getArtifactId() )</span>
-<span class="fc" id="L62">				.withPluginVersion( mojoExecution.getVersion() )</span>
-<span class="fc" id="L63">				.withPluginExecutionId( mojoExecution.getExecutionId() )</span>
-<span class="fc" id="L64">				.withPluginGoal( mojoExecution.getGoal() )</span>
+<span class="fc" id="L59">		return MavenExecutionInfo.builder()</span>
+<span class="fc" id="L60">				.withExecutionOrder( order )</span>
+<span class="fc" id="L61">				.withLifecycle( MavenUtils.retrieveLifecycle( mojoExecution, defaultLifecycles ) )</span>
+<span class="fc" id="L62">				.withPhase( mojoExecution.getLifecyclePhase() )</span>
+<span class="fc" id="L63">				.withPluginArtifactId( mojoExecution.getArtifactId() )</span>
+<span class="fc" id="L64">				.withPluginVersion( mojoExecution.getVersion() )</span>
+<span class="fc" id="L65">				.withPluginExecutionId( mojoExecution.getExecutionId() )</span>
+<span class="fc" id="L66">				.withPluginGoal( mojoExecution.getGoal() )</span>
 
-<span class="fc" id="L66">				.build();</span>
+<span class="fc" id="L68">				.build();</span>
 
 	}
 
 	@Generated(&quot;SparkTools&quot;)
-<span class="fc" id="L71">	private MavenExecutionInfo( Builder builder ) {</span>
-<span class="fc" id="L72">		this.lifecycle = builder.lifecycle;</span>
-<span class="fc" id="L73">		this.phase = builder.phase;</span>
-<span class="fc" id="L74">		this.pluginArtifactId = builder.pluginArtifactId;</span>
-<span class="fc" id="L75">		this.pluginVersion = builder.pluginVersion;</span>
-<span class="fc" id="L76">		this.pluginExecutionId = builder.pluginExecutionId;</span>
-<span class="fc" id="L77">		this.pluginGoal = builder.pluginGoal;</span>
-<span class="fc" id="L78">		this.executionOrder = builder.executionOrder;</span>
+<span class="fc" id="L73">	private MavenExecutionInfo( Builder builder ) {</span>
+<span class="fc" id="L74">		this.lifecycle = builder.lifecycle;</span>
+<span class="fc" id="L75">		this.phase = builder.phase;</span>
+<span class="fc" id="L76">		this.pluginArtifactId = builder.pluginArtifactId;</span>
+<span class="fc" id="L77">		this.pluginVersion = builder.pluginVersion;</span>
+<span class="fc" id="L78">		this.pluginExecutionId = builder.pluginExecutionId;</span>
+<span class="fc" id="L79">		this.pluginGoal = builder.pluginGoal;</span>
+<span class="fc" id="L80">		this.executionOrder = builder.executionOrder;</span>
 
-<span class="fc" id="L80">	}</span>
+<span class="fc" id="L82">	}</span>
 
 	/**
 	 * Creates builder to build {@link MavenExecutionInfo}.
@@ -86,7 +88,7 @@ public final class MavenExecutionInfo {
 	 */
 	@Generated(&quot;SparkTools&quot;)
 	public static Builder builder() {
-<span class="fc" id="L89">		return new Builder();</span>
+<span class="fc" id="L91">		return new Builder();</span>
 	}
 
 	/**
@@ -107,163 +109,179 @@ public final class MavenExecutionInfo {
 		}
 
 		public Builder withExecutionOrder( int executionOrder ) {
-<span class="fc" id="L110">			this.executionOrder = executionOrder;</span>
-<span class="fc" id="L111">			return this;</span>
+<span class="fc" id="L112">			this.executionOrder = executionOrder;</span>
+<span class="fc" id="L113">			return this;</span>
 		}
 
 		public Builder withLifecycle( String lifecycle ) {
-<span class="fc" id="L115">			this.lifecycle = lifecycle;</span>
-<span class="fc" id="L116">			return this;</span>
+<span class="fc" id="L117">			this.lifecycle = lifecycle;</span>
+<span class="fc" id="L118">			return this;</span>
 		}
 
 		public Builder withPhase( String phase ) {
-<span class="fc" id="L120">			this.phase = phase;</span>
-<span class="fc" id="L121">			return this;</span>
+<span class="fc" id="L122">			this.phase = phase;</span>
+<span class="fc" id="L123">			return this;</span>
 		}
 
 		public Builder withPluginArtifactId( String pluginArtifactId ) {
-<span class="fc" id="L125">			this.pluginArtifactId = pluginArtifactId;</span>
-<span class="fc" id="L126">			return this;</span>
-		}
-		
-		public Builder withPluginVersion( String pluginVersion ) {
-<span class="fc" id="L130">			this.pluginVersion = pluginVersion;</span>
-<span class="fc" id="L131">			return this;</span>
+<span class="fc" id="L127">			this.pluginArtifactId = pluginArtifactId;</span>
+<span class="fc" id="L128">			return this;</span>
 		}
 
+		public Builder withPluginVersion( String pluginVersion ) {
+<span class="fc" id="L132">			this.pluginVersion = pluginVersion;</span>
+<span class="fc" id="L133">			return this;</span>
+		}
 
 		public Builder withPluginExecutionId( String pluginExecutionId ) {
-<span class="fc" id="L136">			this.pluginExecutionId = pluginExecutionId;</span>
-<span class="fc" id="L137">			return this;</span>
+<span class="fc" id="L137">			this.pluginExecutionId = pluginExecutionId;</span>
+<span class="fc" id="L138">			return this;</span>
 		}
 
 		public Builder withPluginGoal( String pluginGoal ) {
-<span class="fc" id="L141">			this.pluginGoal = pluginGoal;</span>
-<span class="fc" id="L142">			return this;</span>
+<span class="fc" id="L142">			this.pluginGoal = pluginGoal;</span>
+<span class="fc" id="L143">			return this;</span>
 		}
 
 		public MavenExecutionInfo build() {
-<span class="fc" id="L146">			return new MavenExecutionInfo( this );</span>
+<span class="fc" id="L147">			return new MavenExecutionInfo( this );</span>
 		}
 	}
 
+	/**
+	 * Retrieve value of the attribute {@code mavenExecutionAttribute}.
+	 * The null value are converted in empty value
+	 *
+	 * @param mavenExecutionAttribute the attribute
+	 * @return the value of the attribute or empty string otherwise
+	 */
+	public Object getValueOrEmpty( MavenExecutionAttribute mavenExecutionAttribute ) {
+<span class="fc" id="L159">		return Objects.toString( getValue( mavenExecutionAttribute ), &quot;&quot; );</span>
+	}
+
+	/**
+	 * Retrieve value of the attribute {@code mavenExecutionAttribute}
+	 *
+	 * @param mavenExecutionAttribute the attribute
+	 * @return the value of the attribute or empty string otherwise
+	 */
 	public Object getValue( MavenExecutionAttribute mavenExecutionAttribute ) {
 
-<span class="fc" id="L152">		Object result = null;</span>
+<span class="fc" id="L170">		Object result = null;</span>
 
-<span class="pc bpc" id="L154" title="1 of 8 branches missed.">		switch ( mavenExecutionAttribute ) {</span>
+<span class="pc bpc" id="L172" title="1 of 8 branches missed.">		switch ( mavenExecutionAttribute ) {</span>
 			case PLAN_ORDER:
-<span class="fc" id="L156">				result = getExecutionOrder();</span>
-<span class="fc" id="L157">				break;</span>
+<span class="fc" id="L174">				result = getExecutionOrder();</span>
+<span class="fc" id="L175">				break;</span>
 			case LIFECYCLE:
-<span class="fc" id="L159">				result = getLifecycle();</span>
-<span class="fc" id="L160">				break;</span>
+<span class="fc" id="L177">				result = getLifecycle();</span>
+<span class="fc" id="L178">				break;</span>
 
 			case PHASE:
-<span class="fc" id="L163">				result = getPhase();</span>
-<span class="fc" id="L164">				break;</span>
+<span class="fc" id="L181">				result = getPhase();</span>
+<span class="fc" id="L182">				break;</span>
 			case PLUGIN:
-<span class="fc" id="L166">				result = getPluginArtifactId();</span>
-<span class="fc" id="L167">				break;</span>
+<span class="fc" id="L184">				result = getPluginArtifactId();</span>
+<span class="fc" id="L185">				break;</span>
 
 			case PLUGIN_VERSION:
-<span class="fc" id="L170">				result = getPluginVersion();</span>
-<span class="fc" id="L171">				break;</span>
-				
+<span class="fc" id="L188">				result = getPluginVersion();</span>
+<span class="fc" id="L189">				break;</span>
+
 			case PLUGIN_EXECUTION_ID:
-<span class="fc" id="L174">				result = getPluginExecutionId();</span>
-<span class="fc" id="L175">				break;</span>
+<span class="fc" id="L192">				result = getPluginExecutionId();</span>
+<span class="fc" id="L193">				break;</span>
 
 			case PLUGIN_GOAL:
-<span class="fc" id="L178">				result = getPluginGoal();</span>
-<span class="fc" id="L179">				break;</span>
+<span class="fc" id="L196">				result = getPluginGoal();</span>
+<span class="fc" id="L197">				break;</span>
 			default:
 				break;
 		}
 
-<span class="fc" id="L184">		return result;</span>
+<span class="fc" id="L202">		return result;</span>
 	}
 
 	public int getStringLength( MavenExecutionAttribute mavenExecutionAttribute ) {
 
-<span class="fc" id="L189">		Object value = getValue( mavenExecutionAttribute );</span>
+<span class="fc" id="L207">		Object value = getValue( mavenExecutionAttribute );</span>
 
-<span class="fc" id="L191">		int result = 0;</span>
-<span class="pc bpc" id="L192" title="1 of 2 branches missed.">		if ( value != null ) {</span>
-<span class="fc" id="L193">			result = String.valueOf( value ).length();</span>
+<span class="fc" id="L209">		int result = 0;</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">		if ( value != null ) {</span>
+<span class="fc" id="L211">			result = String.valueOf( value ).length();</span>
 		}
 
-<span class="fc" id="L196">		return result;</span>
+<span class="fc" id="L214">		return result;</span>
 	}
 
 	public void setValue( MavenExecutionAttribute mavenExecutionAttribute, Object value ) {
-<span class="nc bnc" id="L200" title="All 2 branches missed.">		if ( value != null ) {</span>
-<span class="nc" id="L201">			String s = String.valueOf( value );</span>
-<span class="nc bnc" id="L202" title="All 8 branches missed.">			switch ( mavenExecutionAttribute ) {</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">		if ( value != null ) {</span>
+<span class="nc" id="L219">			String s = String.valueOf( value );</span>
+<span class="nc bnc" id="L220" title="All 8 branches missed.">			switch ( mavenExecutionAttribute ) {</span>
 				case PLAN_ORDER:
-<span class="nc" id="L204">					setExecutionOrder( Integer.parseInt( s ) );</span>
-<span class="nc" id="L205">					break;</span>
+<span class="nc" id="L222">					setExecutionOrder( Integer.parseInt( s ) );</span>
+<span class="nc" id="L223">					break;</span>
 
 				case LIFECYCLE:
-<span class="nc" id="L208">					setLifecycle( s );</span>
-<span class="nc" id="L209">					break;</span>
+<span class="nc" id="L226">					setLifecycle( s );</span>
+<span class="nc" id="L227">					break;</span>
 
 				case PHASE:
-<span class="nc" id="L212">					setPhase( s );</span>
-<span class="nc" id="L213">					break;</span>
+<span class="nc" id="L230">					setPhase( s );</span>
+<span class="nc" id="L231">					break;</span>
 				case PLUGIN:
-<span class="nc" id="L215">					setPluginArtifactId( s );</span>
-<span class="nc" id="L216">					break;</span>
-					
+<span class="nc" id="L233">					setPluginArtifactId( s );</span>
+<span class="nc" id="L234">					break;</span>
+
 				case PLUGIN_VERSION:
-<span class="nc" id="L219">					setPluginVersion( s );</span>
-<span class="nc" id="L220">					break;</span>
+<span class="nc" id="L237">					setPluginVersion( s );</span>
+<span class="nc" id="L238">					break;</span>
 
 				case PLUGIN_EXECUTION_ID:
-<span class="nc" id="L223">					setPluginExecutionId( s );</span>
-<span class="nc" id="L224">					break;</span>
+<span class="nc" id="L241">					setPluginExecutionId( s );</span>
+<span class="nc" id="L242">					break;</span>
 
 				case PLUGIN_GOAL:
-<span class="nc" id="L227">					setPluginGoal( s );</span>
-<span class="nc" id="L228">					break;</span>
+<span class="nc" id="L245">					setPluginGoal( s );</span>
+<span class="nc" id="L246">					break;</span>
 
 				default:
 					break;
 			}
 		}
-<span class="nc" id="L234">	}</span>
+<span class="nc" id="L252">	}</span>
 
 	public void setExecutionOrder( int executionOrder ) {
-<span class="nc" id="L237">		this.executionOrder = executionOrder;</span>
-<span class="nc" id="L238">	}</span>
+<span class="nc" id="L255">		this.executionOrder = executionOrder;</span>
+<span class="nc" id="L256">	}</span>
 
 	public void setLifecycle( String lifecycle ) {
-<span class="nc" id="L241">		this.lifecycle = lifecycle;</span>
-<span class="nc" id="L242">	}</span>
+<span class="nc" id="L259">		this.lifecycle = lifecycle;</span>
+<span class="nc" id="L260">	}</span>
 
 	public void setPhase( String phase ) {
-<span class="nc" id="L245">		this.phase = phase;</span>
-<span class="nc" id="L246">	}</span>
+<span class="nc" id="L263">		this.phase = phase;</span>
+<span class="nc" id="L264">	}</span>
 
 	public void setPluginArtifactId( String pluginArtifactId ) {
-<span class="nc" id="L249">		this.pluginArtifactId = pluginArtifactId;</span>
-<span class="nc" id="L250">	}</span>
+<span class="nc" id="L267">		this.pluginArtifactId = pluginArtifactId;</span>
+<span class="nc" id="L268">	}</span>
 
 	public void setPluginVersion( String pluginVersion ) {
-<span class="nc" id="L253">		this.pluginVersion = pluginVersion;</span>
-<span class="nc" id="L254">	}</span>
+<span class="nc" id="L271">		this.pluginVersion = pluginVersion;</span>
+<span class="nc" id="L272">	}</span>
+
 	public void setPluginExecutionId( String pluginExecutionId ) {
-<span class="nc" id="L256">		this.pluginExecutionId = pluginExecutionId;</span>
-<span class="nc" id="L257">	}</span>
+<span class="nc" id="L275">		this.pluginExecutionId = pluginExecutionId;</span>
+<span class="nc" id="L276">	}</span>
 
 	public void setPluginGoal( String pluginGoal ) {
-<span class="nc" id="L260">		this.pluginGoal = pluginGoal;</span>
-<span class="nc" id="L261">	}</span>
+<span class="nc" id="L279">		this.pluginGoal = pluginGoal;</span>
+<span class="nc" id="L280">	}</span>
 
-	
 	@Override
 	public String toString() {
-<span class="fc" id="L266">		return &quot;MavenExecutionInfo [executionOrder=&quot; + executionOrder + &quot;, lifecycle=&quot; + lifecycle + &quot;, phase=&quot; + phase</span>
+<span class="fc" id="L284">		return &quot;MavenExecutionInfo [executionOrder=&quot; + executionOrder + &quot;, lifecycle=&quot; + lifecycle + &quot;, phase=&quot; + phase</span>
 				+ &quot;, pluginArtifactId=&quot; + pluginArtifactId + &quot;, pluginVersion=&quot; + pluginVersion + &quot;, pluginExecutionId=&quot;
 				+ pluginExecutionId + &quot;, pluginGoal=&quot; + pluginGoal + &quot;]&quot;;
 	}
@@ -271,35 +289,35 @@ public final class MavenExecutionInfo {
 	@Override
 	public boolean equals( Object o ) {
 
-<span class="nc bnc" id="L274" title="All 2 branches missed.">		if ( !( o instanceof MavenExecutionInfo ) ) {</span>
-<span class="nc" id="L275">			return false;</span>
+<span class="nc bnc" id="L292" title="All 2 branches missed.">		if ( !( o instanceof MavenExecutionInfo ) ) {</span>
+<span class="nc" id="L293">			return false;</span>
 		}
 
-<span class="nc" id="L278">		MavenExecutionInfo other = (MavenExecutionInfo) o;</span>
+<span class="nc" id="L296">		MavenExecutionInfo other = (MavenExecutionInfo) o;</span>
 
-<span class="nc" id="L280">		return new EqualsBuilder()</span>
-<span class="nc" id="L281">				.append( getLifecycle(), other.getLifecycle() )</span>
-<span class="nc" id="L282">				.append( getExecutionOrder(), other.getExecutionOrder() )</span>
-<span class="nc" id="L283">				.append( getPhase(), other.getPhase() )</span>
-<span class="nc" id="L284">				.append( getPluginArtifactId(), other.getPluginArtifactId() )</span>
-<span class="nc" id="L285">				.append( getPluginVersion(), other.getPluginVersion() )</span>
-<span class="nc" id="L286">				.append( getPluginExecutionId(), other.getPluginExecutionId() )</span>
-<span class="nc" id="L287">				.append( getPluginGoal(), other.getPluginGoal() )</span>
-<span class="nc" id="L288">				.isEquals();</span>
+<span class="nc" id="L298">		return new EqualsBuilder()</span>
+<span class="nc" id="L299">				.append( getLifecycle(), other.getLifecycle() )</span>
+<span class="nc" id="L300">				.append( getExecutionOrder(), other.getExecutionOrder() )</span>
+<span class="nc" id="L301">				.append( getPhase(), other.getPhase() )</span>
+<span class="nc" id="L302">				.append( getPluginArtifactId(), other.getPluginArtifactId() )</span>
+<span class="nc" id="L303">				.append( getPluginVersion(), other.getPluginVersion() )</span>
+<span class="nc" id="L304">				.append( getPluginExecutionId(), other.getPluginExecutionId() )</span>
+<span class="nc" id="L305">				.append( getPluginGoal(), other.getPluginGoal() )</span>
+<span class="nc" id="L306">				.isEquals();</span>
 
 	}
 
 	@Override
 	public int hashCode() {
-<span class="nc" id="L294">		return new HashCodeBuilder()</span>
-<span class="nc" id="L295">				.append( getLifecycle() )</span>
-<span class="nc" id="L296">				.append( getExecutionOrder() )</span>
-<span class="nc" id="L297">				.append( getPhase() )</span>
-<span class="nc" id="L298">				.append( getPluginArtifactId() )</span>
-<span class="nc" id="L299">				.append( getPluginVersion() )</span>
-<span class="nc" id="L300">				.append( getPluginExecutionId() )</span>
-<span class="nc" id="L301">				.append( getPluginGoal() )</span>
-<span class="nc" id="L302">				.toHashCode()</span>
+<span class="nc" id="L312">		return new HashCodeBuilder()</span>
+<span class="nc" id="L313">				.append( getLifecycle() )</span>
+<span class="nc" id="L314">				.append( getExecutionOrder() )</span>
+<span class="nc" id="L315">				.append( getPhase() )</span>
+<span class="nc" id="L316">				.append( getPluginArtifactId() )</span>
+<span class="nc" id="L317">				.append( getPluginVersion() )</span>
+<span class="nc" id="L318">				.append( getPluginExecutionId() )</span>
+<span class="nc" id="L319">				.append( getPluginGoal() )</span>
+<span class="nc" id="L320">				.toHashCode()</span>
 
 		;
 	}

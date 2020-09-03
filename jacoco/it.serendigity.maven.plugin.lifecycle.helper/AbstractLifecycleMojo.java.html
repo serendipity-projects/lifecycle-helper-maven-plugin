@@ -9,10 +9,24 @@ import java.util.Objects;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.lifecycle.DefaultLifecycles;
 import org.apache.maven.lifecycle.LifecycleExecutor;
+import org.apache.maven.lifecycle.LifecycleNotFoundException;
+import org.apache.maven.lifecycle.LifecyclePhaseNotFoundException;
 import org.apache.maven.lifecycle.MavenExecutionPlan;
+import org.apache.maven.lifecycle.internal.BuildListCalculator;
+import org.apache.maven.lifecycle.internal.GoalTask;
+import org.apache.maven.lifecycle.internal.LifecycleTask;
+import org.apache.maven.lifecycle.internal.LifecycleTaskSegmentCalculator;
+import org.apache.maven.lifecycle.internal.TaskSegment;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.InvalidPluginDescriptorException;
 import org.apache.maven.plugin.MojoExecution;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.MojoNotFoundException;
+import org.apache.maven.plugin.PluginDescriptorParsingException;
+import org.apache.maven.plugin.PluginNotFoundException;
+import org.apache.maven.plugin.PluginResolutionException;
+import org.apache.maven.plugin.prefix.NoPluginFoundForPrefixException;
+import org.apache.maven.plugin.version.PluginVersionResolutionException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -21,7 +35,7 @@ import org.apache.maven.shared.utils.logging.MessageUtils;
 import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionInfo;
 import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 
-<span class="nc" id="L24">public abstract class AbstractLifecycleMojo extends AbstractMojo {</span>
+<span class="nc" id="L38">public abstract class AbstractLifecycleMojo extends AbstractMojo {</span>
 
 	@Parameter(defaultValue = &quot;${session}&quot;, readonly = true)
 	private MavenSession session;
@@ -32,6 +46,11 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 	@Component
 	private LifecycleExecutor lifecycleExecutor;
 
+	@Component
+	private LifecycleTaskSegmentCalculator lifecycleTaskSegmentCalculator;
+	@Component
+	private BuildListCalculator buildListCalculator;
+
 	/**
 	 * The Maven default built-in lifecycles.
 	 */
@@ -39,63 +58,97 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 	protected DefaultLifecycles defaultLifecycles;
 
 	/**
-	 * Allows you to specify which phases will be used to calculate the execution
+	 * Allows you to specify which tasks (lifecycle phases or plugin/goal) will be used to calculate the execution
 	 * plan.
+	 * If not specified the run tasks are the phases: post-clean, deploy, site-deploy.
+	 *
+	 * If you set {@link #paramForceTasksFromSession} to true this parameter is ignored!
 	 */
-	@Parameter(property = &quot;lifecycle-helper.phases&quot;, defaultValue = &quot;post-clean,deploy,site-deploy&quot;)
-	private String[] paramLifecyclePhases;
+	@Parameter(property = &quot;lifecycle-helper.tasks&quot;, defaultValue = &quot;post-clean,deploy,site-deploy&quot;)
+	private String[] paramLifecycleTasks;
 
 	/** Allows you to filter the specified plugins (plugin-artifact-id). */
 	@Parameter(property = &quot;lifecycle-helper.filter.plugins&quot;)
 	private String[] paramFilterPlugins;
 
+	/**
+	 * If enabled the tasks are taken from maven session and the property {@link #paramLifecycleTasks} is ignored
+	 * Helpful when you include the plugin in your pom in order to list the execution-plan of the current tasks build.
+	 **/
+	@Parameter(property = &quot;lifecycle-helper.forceTasksFromSession&quot;, defaultValue = &quot;false&quot;)
+	private boolean paramForceTasksFromSession;
+
+	protected boolean isParamForceTasksFromSession() {
+<span class="nc" id="L82">		return paramForceTasksFromSession;</span>
+	}
+
 	private List&lt;String&gt; pluginToElaborate;
+	private String[] tasksToElaborate;
 
 	protected MavenExecutionPlanInfo calculateExecutionPlan( boolean calculateSummary ) throws MojoFailureException {
 
-<span class="nc" id="L56">		setPluginToElaborate( normalizeParamFilterPlugin() );</span>
+<span class="nc" id="L90">		setPluginToElaborate( normalizeParamFilterPlugin() );</span>
 
-<span class="nc" id="L58">		MavenExecutionPlanInfo planInfo = new MavenExecutionPlanInfo( calculateSummary );</span>
+<span class="nc" id="L92">		MavenExecutionPlanInfo planInfo = new MavenExecutionPlanInfo( calculateSummary );</span>
 
 		try {
 
-<span class="nc" id="L62">			MavenExecutionPlan calculateExecutionPlan = lifecycleExecutor.calculateExecutionPlan( session,</span>
-					paramLifecyclePhases );
-<span class="nc" id="L64">			List&lt;MojoExecution&gt; mojoExecutions = calculateExecutionPlan.getMojoExecutions();</span>
+<span class="nc" id="L96">			String[] tasks = calculateTasksToElaborate();</span>
+<span class="nc" id="L97">			setTasksToElaborate( tasks );</span>
 
-<span class="nc" id="L66">			int order = 0;</span>
+<span class="nc" id="L99">			MavenExecutionPlan calculateExecutionPlan = lifecycleExecutor.calculateExecutionPlan( session,</span>
+					tasks );
+<span class="nc" id="L101">			List&lt;MojoExecution&gt; mojoExecutions = calculateExecutionPlan.getMojoExecutions();</span>
 
-<span class="nc bnc" id="L68" title="All 2 branches missed.">			for ( MojoExecution mojoExecution : mojoExecutions ) {</span>
+<span class="nc" id="L103">			int order = 0;</span>
 
-<span class="nc" id="L70">				MavenExecutionInfo info = MavenExecutionInfo.from( order++, mojoExecution, defaultLifecycles );</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">				if ( validateMavenExecution( info ) ) {</span>
-<span class="nc" id="L72">					planInfo.addMavenExecutionInfo( info );</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">			for ( MojoExecution mojoExecution : mojoExecutions ) {</span>
+
+<span class="nc" id="L107">				MavenExecutionInfo info = MavenExecutionInfo.from( order++, mojoExecution, defaultLifecycles );</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">				if ( validateMavenExecution( info ) ) {</span>
+<span class="nc" id="L109">					planInfo.addMavenExecutionInfo( info );</span>
 				}
-<span class="nc" id="L74">			}</span>
+<span class="nc" id="L111">			}</span>
 
-<span class="nc bnc" id="L76" title="All 4 branches missed.">			if ( planInfo.getMavenExecutionsInfo() == null || planInfo.getMavenExecutionsInfo().isEmpty() ) {</span>
-<span class="nc" id="L77">				getLog().info( &quot;No execution plan item found for requested parameters.&quot; );</span>
+<span class="nc bnc" id="L113" title="All 4 branches missed.">			if ( planInfo.getMavenExecutionsInfo() == null || planInfo.getMavenExecutionsInfo().isEmpty() ) {</span>
+<span class="nc" id="L114">				getLog().info( &quot;No execution plan item found for requested parameters.&quot; );</span>
 			}
 
 		}
-<span class="nc" id="L81">		catch (Exception e) {</span>
-<span class="nc" id="L82">			throw new MojoFailureException( &quot;Cannot calculate Maven execution plan, caused by: &quot; + e.getMessage(), e );</span>
-<span class="nc" id="L83">		}</span>
-<span class="nc" id="L84">		return planInfo;</span>
+<span class="nc" id="L118">		catch (Exception e) {</span>
+<span class="nc" id="L119">			throw new MojoFailureException( &quot;Cannot calculate Maven execution plan, caused by: &quot; + e.getMessage(), e );</span>
+<span class="nc" id="L120">		}</span>
+<span class="nc" id="L121">		return planInfo;</span>
+	}
+
+	protected String[] calculateTasksToElaborate() throws MojoFailureException {
+<span class="nc" id="L125">		String[] result = null;</span>
+
+<span class="nc bnc" id="L127" title="All 2 branches missed.">		if ( isParamForceTasksFromSession() ) {</span>
+<span class="nc" id="L128">			List&lt;String&gt; tasksFromSession = retrieveTasksFromSession();</span>
+
+<span class="nc bnc" id="L130" title="All 2 branches missed.">			if ( !tasksFromSession.isEmpty() ) {</span>
+<span class="nc" id="L131">				result = tasksFromSession.toArray( new String[tasksFromSession.size()] );</span>
+			}
+<span class="nc" id="L133">		}</span>
+		else {
+<span class="nc" id="L135">			result = paramLifecycleTasks;</span>
+		}
+<span class="nc" id="L137">		return result;</span>
 	}
 
 	protected boolean validateMavenExecution( MavenExecutionInfo info ) {
-<span class="nc" id="L88">		boolean result = true;</span>
+<span class="nc" id="L141">		boolean result = true;</span>
 
-<span class="nc" id="L90">		getLog().debug( &quot;Validate maven execution ...&quot; );</span>
-<span class="nc" id="L91">		result = validatePlugin( info, getPluginsToElaborate() );</span>
+<span class="nc" id="L143">		getLog().debug( &quot;Validate maven execution ...&quot; );</span>
+<span class="nc" id="L144">		result = validatePlugin( info, getPluginsToElaborate() );</span>
 
-<span class="nc bnc" id="L93" title="All 2 branches missed.">		if ( getLog().isDebugEnabled() ) {</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">		if ( getLog().isDebugEnabled() ) {</span>
 
-<span class="nc" id="L95">			getLog().debug( &quot;Maven execution &quot; + info + &quot;. Validate: &quot; + result );</span>
+<span class="nc" id="L148">			getLog().debug( &quot;Maven execution &quot; + info + &quot;. Validate: &quot; + result );</span>
 		}
 
-<span class="nc" id="L98">		return result;</span>
+<span class="nc" id="L151">		return result;</span>
 	}
 
 	/**
@@ -105,19 +158,19 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 	 */
 	protected List&lt;String&gt; normalizeParamFilterPlugin() {
 
-<span class="nc" id="L108">		List&lt;String&gt; result = null;</span>
+<span class="nc" id="L161">		List&lt;String&gt; result = null;</span>
 
-<span class="nc bnc" id="L110" title="All 2 branches missed.">		for ( String f : getParamFilterPlugins() ) {</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">		for ( String f : getParamFilterPlugins() ) {</span>
 
-<span class="nc bnc" id="L112" title="All 2 branches missed.">			if ( result == null ) {</span>
-<span class="nc" id="L113">				result = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">			if ( result == null ) {</span>
+<span class="nc" id="L166">				result = new ArrayList&lt;&gt;();</span>
 			}
-<span class="nc bnc" id="L115" title="All 2 branches missed.">			if ( f != null ) {</span>
-<span class="nc" id="L116">				result.add( f.trim() );</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">			if ( f != null ) {</span>
+<span class="nc" id="L169">				result.add( f.trim() );</span>
 			}
 		}
 
-<span class="nc" id="L120">		return result;</span>
+<span class="nc" id="L173">		return result;</span>
 	}
 
 	/**
@@ -127,25 +180,25 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 	 */
 	protected static boolean validatePlugin( MavenExecutionInfo info, List&lt;String&gt; filterPlugin ) {
 
-<span class="fc" id="L130">		boolean result = true;</span>
+<span class="fc" id="L183">		boolean result = true;</span>
 
 		// Filter plugin
-<span class="pc bpc" id="L133" title="1 of 2 branches missed.">		if ( filterPlugin != null ) {</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">		if ( filterPlugin != null ) {</span>
 
-<span class="fc" id="L135">			result = filterPlugin.contains( info.getPluginArtifactId() );</span>
+<span class="fc" id="L188">			result = filterPlugin.contains( info.getPluginArtifactId() );</span>
 
 		}
 
-<span class="fc" id="L139">		return result;</span>
+<span class="fc" id="L192">		return result;</span>
 	}
 
 	protected void handleOutput( final String output ) {
-<span class="nc" id="L143">		String header = headerParametersString();</span>
+<span class="nc" id="L196">		String header = headerParametersString();</span>
 
-<span class="nc" id="L145">		String outputWithTitle = header + output;</span>
-<span class="nc" id="L146">		getLog().info( outputWithTitle );</span>
+<span class="nc" id="L198">		String outputWithTitle = header + output;</span>
+<span class="nc" id="L199">		getLog().info( outputWithTitle );</span>
 
-<span class="nc" id="L148">	}</span>
+<span class="nc" id="L201">	}</span>
 
 	/**
 	 * Mojo parameters header
@@ -153,27 +206,81 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 	 * @return String parameters
 	 */
 	protected String headerParametersString() {
-<span class="nc" id="L156">		String header = MessageUtils.buffer().strong(</span>
-<span class="nc" id="L157">				&quot;\nProject: &quot; + project.getName() + &quot; (&quot; + project.getArtifactId() + &quot;:&quot; + project.getVersion() + &quot;)&quot; )</span>
+<span class="nc" id="L209">		String header = MessageUtils.buffer().strong(</span>
+<span class="nc" id="L210">				&quot;\nProject: &quot; + project.getName() + &quot; (&quot; + project.getArtifactId() + &quot;:&quot; + project.getVersion() + &quot;)&quot; )</span>
 				+ &quot;.&quot;;
-<span class="nc" id="L159">		header = header + &quot;\nExecution plan for run phases: &quot; + Arrays.asList( paramLifecyclePhases );</span>
 
-<span class="nc" id="L161">		header = header + &quot;\nFilter plugins: &quot; + Objects.toString( getPluginsToElaborate(), &quot;&quot; );</span>
+<span class="nc" id="L213">		header = header + &quot;\nForce tasks from Session: &quot; + isParamForceTasksFromSession();</span>
 
-<span class="nc" id="L163">		return header;</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">		if ( isParamForceTasksFromSession() ) {</span>
+<span class="nc" id="L216">			header = header + &quot;\nExecution plan for Session tasks: &quot; + Arrays.asList( getTasksToElaborate() );</span>
+		}
+		else {
+<span class="nc" id="L219">			header = header + &quot;\nExecution plan for run tasks: &quot; + Arrays.asList( paramLifecycleTasks );</span>
+		}
+
+<span class="nc" id="L222">		header = header + &quot;\nFilter plugins: &quot; + Objects.toString( getPluginsToElaborate(), &quot;&quot; );</span>
+
+<span class="nc" id="L224">		return header;</span>
 	}
 
 	protected String[] getParamFilterPlugins() {
-<span class="nc" id="L167">		return paramFilterPlugins;</span>
+<span class="nc" id="L228">		return paramFilterPlugins;</span>
 	}
 
 	protected List&lt;String&gt; getPluginsToElaborate() {
-<span class="nc" id="L171">		return pluginToElaborate;</span>
+<span class="nc" id="L232">		return pluginToElaborate;</span>
 	}
 
 	protected void setPluginToElaborate( List&lt;String&gt; pluginToElaborate ) {
-<span class="nc" id="L175">		this.pluginToElaborate = pluginToElaborate;</span>
-<span class="nc" id="L176">	}</span>
+<span class="nc" id="L236">		this.pluginToElaborate = pluginToElaborate;</span>
+<span class="nc" id="L237">	}</span>
+
+	protected List&lt;String&gt; retrieveTasksFromSession() throws MojoFailureException {
+
+<span class="nc" id="L241">		List&lt;String&gt; sessionTasksResult = new ArrayList&lt;&gt;();</span>
+
+		List&lt;TaskSegment&gt; taskSegments;
+		try {
+<span class="nc" id="L245">			taskSegments = lifecycleTaskSegmentCalculator.calculateTaskSegments( session );</span>
+
+<span class="nc bnc" id="L247" title="All 2 branches missed.">			if ( taskSegments != null ) {</span>
+
+<span class="nc bnc" id="L249" title="All 2 branches missed.">				for ( TaskSegment taskSegmentList : taskSegments ) {</span>
+
+<span class="nc bnc" id="L251" title="All 2 branches missed.">					for ( Object task : taskSegmentList.getTasks() ) {</span>
+
+<span class="nc bnc" id="L253" title="All 2 branches missed.">						if ( task instanceof LifecycleTask ) {</span>
+<span class="nc" id="L254">							sessionTasksResult.add( ( (LifecycleTask) task ).getLifecyclePhase() );</span>
+						}
+<span class="nc bnc" id="L256" title="All 2 branches missed.">						else if ( task instanceof GoalTask ) {</span>
+<span class="nc" id="L257">							sessionTasksResult.add( ( (GoalTask) task ).toString() );</span>
+						}
+						else {
+<span class="nc" id="L260">							getLog().warn( &quot;Task is not recognized. Task is ignored --&gt; &quot; + task + &quot; &quot; + task.getClass() );</span>
+						}
+
+<span class="nc" id="L263">					}</span>
+
+<span class="nc" id="L265">				}</span>
+			}
+		}
+<span class="nc" id="L268">		catch (PluginNotFoundException | PluginResolutionException | PluginDescriptorParsingException | MojoNotFoundException | NoPluginFoundForPrefixException</span>
+				| InvalidPluginDescriptorException | PluginVersionResolutionException | LifecyclePhaseNotFoundException | LifecycleNotFoundException e) {
+<span class="nc" id="L270">			throw new MojoFailureException( &quot;Error retrieving task from session&quot;, e );</span>
+<span class="nc" id="L271">		}</span>
+
+<span class="nc" id="L273">		return sessionTasksResult;</span>
+
+	}
+
+	protected String[] getTasksToElaborate() {
+<span class="nc" id="L278">		return tasksToElaborate;</span>
+	}
+
+	protected void setTasksToElaborate( String[] tasksToElaborate ) {
+<span class="nc" id="L282">		this.tasksToElaborate = tasksToElaborate;</span>
+<span class="nc" id="L283">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
