@@ -62,6 +62,22 @@ class TextUtilsTest {
 	}
 
 	@Test
+	void testNormalizeFileNameWithExtension_fileWithExtension() throws Exception {
+		String fileName = "aaaaa.csv";
+		String ext = "CSV";
+		String normalized = TextUtils.normalizeFileNameWithExtension( fileName, ext );
+		assertThat( normalized ).isEqualToIgnoringCase( fileName );
+	}
+
+	@Test
+	void testNormalizeFileNameWithExtension_fileWithOtherDir() throws Exception {
+		String fileName = "cccc/aaaaa";
+		String ext = "CSV";
+		String normalized = TextUtils.normalizeFileNameWithExtension( fileName, ext );
+		assertThat( normalized ).isEqualToIgnoringCase( fileName + "."+ ext);
+	}
+
+	@Test
 	void testJustifyFormat_withSeparator() throws Exception {
 		int width = 10;
 		char sep1 = '|';

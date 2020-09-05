@@ -1,5 +1,8 @@
 package it.serendigity.maven.plugin.lifecycle.helper.utils;
 
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
+
 public class TextUtils {
 
 	public static final String STRING_PLACEHOLDER = "%s";
@@ -43,18 +46,18 @@ public class TextUtils {
 	 *
 	 * @param fileName name of the file
 	 * @param fileFormat the format of the file (extension)
-	 * @return the fileName with extension
+	 * @return the fileName with extension {@code fileFormat}
 	 */
 	public static String normalizeFileNameWithExtension( String fileName, String fileFormat ) {
-
 		String result = fileName;
-		if ( fileFormat != null && !fileName.endsWith( fileFormat ) ) {
 
-			result += "." + fileFormat;
-
+		String extension = FilenameUtils.getExtension( fileName );
+		if ( StringUtils.isEmpty( extension ) || !extension.equalsIgnoreCase( fileFormat ) ) {
+			result = fileName + "." + fileFormat;
 		}
 
 		return result;
+
 	}
 
 }
