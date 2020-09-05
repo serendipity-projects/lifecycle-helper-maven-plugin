@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"it.serendigity.maven.plugin.lifecycle.helper"},{"l":"it.serendigity.maven.plugin.lifecycle.helper.output"},{"l":"it.serendigity.maven.plugin.lifecycle.helper.utils"},{"l":"it.serendigity.maven.plugin.lifecycle.helper.vo"}]

@@ -82,8 +82,8 @@ public class TxtTable extends TxtOutput {
 <span class="fc bfc" id="L82" title="All 2 branches covered.">			for (MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo) {</span>
 
 <span class="pc bpc" id="L84" title="1 of 2 branches missed.">				String currentGroup = isGroupByColumnSelected()</span>
-<span class="pc" id="L85">						? String.valueOf(mavenExecutionInfo.getValueOrEmpty( getOrderByColumn()))</span>
-						: &quot;&quot;;
+<span class="nc" id="L85">						? String.valueOf(mavenExecutionInfo.getValueOrEmpty( getOrderByColumn()))</span>
+<span class="fc" id="L86">						: &quot;&quot;;</span>
 
 <span class="pc bpc" id="L88" title="5 of 6 branches missed.">				if (columnGroupByEnabled &amp;&amp; currentGroup != null &amp;&amp; !currentGroup.equals(oldGroup)) {</span>
 <span class="nc" id="L89">					builder.append(newLineSeparator());</span>

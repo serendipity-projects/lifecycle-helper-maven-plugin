@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"it.serendigity.maven.plugin.lifecycle.helper.vo","c":"MavenExecutionInfoTest","l":"MavenExecutionInfoTest()","url":"%3Cinit%3E()"}]
