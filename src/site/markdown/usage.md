@@ -18,7 +18,7 @@ Otherwise you can execute the plugin with the command
 > mvn it.serendigity.maven.plugins:lifecycle-helper-maven-plugin:execution-plan
 ```
 
-## Brief examples on how to use the Plugin from COMMAND LINE
+## Brief examples on how to use goal *execution-plan* from COMMAND LINE
 Note: For all the examples we used the pom from the integration test project.
 [View pom](https://github.com/serendipity-projects/lifecycle-helper-maven-plugin/blob/master/src/it/execution-plan/pom.xml)
 
