@@ -10,7 +10,7 @@ import com.google.common.base.Strings;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class MavenExecutionInfoTest {
+class MavenExecutionInfoTest {
 
 	@Test
 	void testSetValue_GetValue() throws Exception {
@@ -57,7 +57,7 @@ public class MavenExecutionInfoTest {
 	void testGetValueOrEmpty() throws Exception {
 		MavenExecutionInfo info = new MavenExecutionInfo();
 		// Set value (exclude numeric value)
-		 Set<MavenExecutionAttribute> complementOf = MavenExecutionAttribute.complementOf( MavenExecutionAttribute.PLAN_ORDER);
+		Set<MavenExecutionAttribute> complementOf = MavenExecutionAttribute.complementOf( MavenExecutionAttribute.PLAN_ORDER );
 
 		for ( MavenExecutionAttribute mavenExecutionAttribute : complementOf ) {
 			info.setValue( mavenExecutionAttribute, null );
