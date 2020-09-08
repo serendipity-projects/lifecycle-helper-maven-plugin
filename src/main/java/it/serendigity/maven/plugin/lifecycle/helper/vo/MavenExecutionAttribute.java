@@ -10,7 +10,8 @@ import java.util.Set;
  * Maven execution plan attribute
  */
 public enum MavenExecutionAttribute {
-	/** Execution plan order**/
+
+	/** Execution plan order **/
 	PLAN_ORDER("execution-plan-order-id", "Plan order", "Execution plan order id", false),
 	/** Maven lifecycle **/
 	LIFECYCLE("lifecycle", "Lifecycle"),
@@ -18,11 +19,11 @@ public enum MavenExecutionAttribute {
 	PHASE("phase", "Lifecycle phase"),
 	/** Maven plugin **/
 	PLUGIN("plugin", "Plugin Artifact Id"),
-	/** Maven plugin version**/
+	/** Maven plugin version **/
 	PLUGIN_VERSION("plugin-version", "Plugin Version"),
-	/** Maven plugin execution id**/
+	/** Maven plugin execution id **/
 	PLUGIN_EXECUTION_ID("plugin-execution", "Plugin Execution Id"),
-	/** Maven plugin goal**/
+	/** Maven plugin goal **/
 	PLUGIN_GOAL("goal", "Plugin goal"),;
 
 	private final String code;
@@ -30,7 +31,7 @@ public enum MavenExecutionAttribute {
 	private final String description;
 	private final boolean groupByEnabled;
 
-	private MavenExecutionAttribute( String code, String shortDescription, String description, boolean groupByEnabled ) {
+	MavenExecutionAttribute( String code, String shortDescription, String description, boolean groupByEnabled ) {
 		this.code = code;
 		this.description = description;
 		this.shortDescription = shortDescription;
