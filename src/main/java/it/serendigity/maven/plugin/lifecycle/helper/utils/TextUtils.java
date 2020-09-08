@@ -3,7 +3,7 @@ package it.serendigity.maven.plugin.lifecycle.helper.utils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class TextUtils {
+public final class TextUtils {
 
 	public static final String STRING_PLACEHOLDER = "%s";
 

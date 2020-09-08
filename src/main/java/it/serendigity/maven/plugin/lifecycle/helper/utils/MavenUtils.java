@@ -4,7 +4,7 @@ import org.apache.maven.lifecycle.DefaultLifecycles;
 import org.apache.maven.lifecycle.Lifecycle;
 import org.apache.maven.plugin.MojoExecution;
 
-public class MavenUtils {
+public final class MavenUtils {
 
 	private MavenUtils() {
 
