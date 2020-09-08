@@ -1,5 +1,6 @@
 package it.serendigity.maven.plugin.lifecycle.helper.vo;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.Set;
@@ -10,7 +11,8 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * Order a {@link MavenExecutionInfo} by {@link MavenExecutionAttribute}
  *
  */
-public class MavenExecutionComparator implements Comparator<MavenExecutionInfo> {
+@SuppressWarnings("serial")
+public class MavenExecutionComparator implements Comparator<MavenExecutionInfo>, Serializable {
 
 	private final MavenExecutionAttribute orderAttribute;
 
