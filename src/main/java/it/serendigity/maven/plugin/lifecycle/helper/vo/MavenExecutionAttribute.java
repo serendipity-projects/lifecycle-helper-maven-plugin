@@ -39,12 +39,12 @@ public enum MavenExecutionAttribute {
 
 	}
 
-	private MavenExecutionAttribute( String code, String description, boolean groupByEnabled ) {
+	MavenExecutionAttribute( String code, String description, boolean groupByEnabled ) {
 		this( code, description, description, groupByEnabled );
 
 	}
 
-	private MavenExecutionAttribute( String code, String description ) {
+	MavenExecutionAttribute( String code, String description ) {
 		this( code, description, true );
 	}
 
