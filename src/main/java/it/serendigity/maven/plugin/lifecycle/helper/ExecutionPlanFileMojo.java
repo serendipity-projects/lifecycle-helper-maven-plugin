@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -23,6 +24,7 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
  */
 @Mojo(name = "execution-plan-file", defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true, requiresProject = true)
 public class ExecutionPlanFileMojo extends AbstractLifecycleMojo {
+
 	private static final String OUTPUT_FILE_NAME = "lifecycle-helper";
 	private static final String CSV = "CSV";
 
@@ -50,45 +52,60 @@ public class ExecutionPlanFileMojo extends AbstractLifecycleMojo {
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
-		String fileName = TextUtils.normalizeFileNameWithExtension(paramOutputFileName, paramFileFormat.name());
-		validateOutputDirectory(paramOutputDirectory);
+		String fileName = TextUtils.normalizeFileNameWithExtension( paramOutputFileName, paramFileFormat.name() );
 
-		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan(false);
+		boolean created = validateOutputDirectory( paramOutputDirectory );
+		if ( getLog().isDebugEnabled() ) {
+			getLog().debug( "Output directory :" + paramOutputDirectory + " (created: " + created + ")" );
+		}
 
-		CSVTable csv = new CSVTable(executionPlanInfo);
+		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan( false );
+
+		CSVTable csv = new CSVTable( executionPlanInfo );
 
 		String table = csv.createTable();
 
 		try {
 
-			Path fullPathOutputFile = paramOutputDirectory.toPath().resolve(fileName);
+			Path fullPathOutputFile = paramOutputDirectory.toPath().resolve( fileName );
 
 			File fout = fullPathOutputFile.toFile();
 
-			if (fout.exists()) {
-				getLog().error("Output file name already exists! " + fileName + "(" + paramOutputDirectory + ")");
-			} else {
+			if ( fout.exists() ) {
+				getLog().error( "Output file name already exists! " + fileName + "(" + paramOutputDirectory + ")" );
+			}
+			else {
 
-				FileOutputStream fos = new FileOutputStream(fout);
+				FileOutputStream fos = new FileOutputStream( fout );
 
-				try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos))) {
-					bw.write(table);
+				try ( BufferedWriter bw = new BufferedWriter( new OutputStreamWriter( fos, StandardCharsets.UTF_8 ) ) ) {
+					bw.write( table );
 
 				}
 			}
 
-			handleOutput("\nFile " + fileName + " created in " + paramOutputDirectory + ".");
+			handleOutput( "\nFile " + fileName + " created in " + paramOutputDirectory + "." );
 
-		} catch (IOException e) {
-			getLog().error(e);
+		}
+		catch (IOException e) {
+			getLog().error( e );
 		}
 
 	}
 
-	protected void validateOutputDirectory(File dir) {
-		if (!dir.exists()) {
-			dir.mkdirs();
+	/**
+	 * Check {@code dir} and if not exists create the directory
+	 *
+	 * @param dir
+	 * @return true if and only if the directory was created, along with all necessary parent directories; false
+	 * otherwise
+	 */
+	protected boolean validateOutputDirectory( File dir ) {
+		boolean result = false;
+		if ( !dir.exists() ) {
+			result = dir.mkdirs();
 		}
+		return result;
 	}
 
 	@Override
