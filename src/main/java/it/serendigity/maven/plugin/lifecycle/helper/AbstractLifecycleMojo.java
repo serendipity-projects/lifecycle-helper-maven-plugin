@@ -12,7 +12,6 @@ import org.apache.maven.lifecycle.LifecycleExecutor;
 import org.apache.maven.lifecycle.LifecycleNotFoundException;
 import org.apache.maven.lifecycle.LifecyclePhaseNotFoundException;
 import org.apache.maven.lifecycle.MavenExecutionPlan;
-import org.apache.maven.lifecycle.internal.BuildListCalculator;
 import org.apache.maven.lifecycle.internal.GoalTask;
 import org.apache.maven.lifecycle.internal.LifecycleTask;
 import org.apache.maven.lifecycle.internal.LifecycleTaskSegmentCalculator;
@@ -48,8 +47,6 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 
 	@Component
 	private LifecycleTaskSegmentCalculator lifecycleTaskSegmentCalculator;
-	@Component
-	private BuildListCalculator buildListCalculator;
 
 	/**
 	 * The Maven default built-in lifecycles.
