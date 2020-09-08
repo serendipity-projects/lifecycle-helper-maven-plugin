@@ -96,7 +96,7 @@ public class ExecutionPlanFileMojo extends AbstractLifecycleMojo {
 	/**
 	 * Check {@code dir} and if not exists create the directory
 	 *
-	 * @param dir
+	 * @param dir directory to check
 	 * @return true if and only if the directory was created, along with all necessary parent directories; false
 	 * otherwise
 	 */
