@@ -19,6 +19,9 @@ The plugin provides goals aimed at helping to inspects your project lifecycle ph
 if a plugin-goal is executed and when. It includes the ability to list all plugin-goal mapping to executed phases
 and group the execution plan result by lifecycle/phases/plugin/goal.
 
+# Requirements
+For a complete list of requirements view [System requirements section](https://serendipity-projects.github.io/lifecycle-helper-maven-plugin/plugin-info.html#System%20requirements)
+
 ### Quick start
 In your maven project execute the following command:
 
