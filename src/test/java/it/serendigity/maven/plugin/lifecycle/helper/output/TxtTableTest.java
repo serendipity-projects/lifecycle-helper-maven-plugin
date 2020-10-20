@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,9 @@ class TxtTableTest {
 
 		TxtTable table = new TxtTable( planInfo, orderAttr, true );
 		String text = table.createTable();
-		assertThat( text ).contains( lifecycles ).containsIgnoringCase( orderAttr.getShortDescription()+ ":"  );
+		Set<MavenExecutionAttribute> columns = table.getColumns();
+		assertThat( columns.contains( orderAttr ) ).isFalse();
+		assertThat( text ).contains( lifecycles ).containsIgnoringCase( orderAttr.getShortDescription() + ":" );
 
 	}
 
@@ -53,7 +56,6 @@ class TxtTableTest {
 		MavenExecutionInfo info3 = MavenExecutionInfo.builder().withExecutionOrder( 3 ).withLifecycle( lifecycles.get( 2 ) )
 				.withPhase( "alarge phase 2" ).withPluginArtifactId( "plugin artifact 1" )
 				.withPluginExecutionId( "large execution id 2 " ).withPluginGoal( "large plugin goal 2" ).build();
-
 
 		MavenExecutionInfo info4 = MavenExecutionInfo.builder().withExecutionOrder( 3 ).withLifecycle( lifecycles.get( 2 ) )
 				.withPhase( "alarge phase 4" ).withPluginArtifactId( "plugin artifact 4" )

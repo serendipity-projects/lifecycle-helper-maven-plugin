@@ -54,7 +54,6 @@ public abstract class TxtOutput {
 	}
 
 	protected Set<MavenExecutionAttribute> createColumns() {
-
 		return EnumSet.allOf( MavenExecutionAttribute.class );
 	}
 
