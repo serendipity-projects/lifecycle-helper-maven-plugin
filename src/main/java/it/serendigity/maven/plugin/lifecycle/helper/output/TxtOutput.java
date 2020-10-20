@@ -36,7 +36,7 @@ public abstract class TxtOutput {
 	/**
 	 * Override this method and call super to initialize the table
 	 *
-	 * @return
+	 * @return empty string
 	 */
 	protected String createTable() {
 		initTable();
