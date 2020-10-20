@@ -18,7 +18,7 @@
 <a class="jxr_linenumber" name="L10" href="#L10">10</a>  
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> nl.jqno.equalsverifier.EqualsVerifier;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  
-<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="MavenExecutionInfoTest" href="../../../../../../../it/serendigity/maven/plugin/lifecycle/helper/vo/MavenExecutionInfoTest.html#MavenExecutionInfoTest">MavenExecutionInfoTest</a> {
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">class</strong> <a name="MavenExecutionInfoTest" href="../../../../../../../it/serendigity/maven/plugin/lifecycle/helper/vo/MavenExecutionInfoTest.html#MavenExecutionInfoTest">MavenExecutionInfoTest</a> {
 <a class="jxr_linenumber" name="L14" href="#L14">14</a>  
 <a class="jxr_linenumber" name="L15" href="#L15">15</a>  	@Test
 <a class="jxr_linenumber" name="L16" href="#L16">16</a>  	<strong class="jxr_keyword">void</strong> testSetValue_GetValue() <strong class="jxr_keyword">throws</strong> Exception {
@@ -65,7 +65,7 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  	<strong class="jxr_keyword">void</strong> testGetValueOrEmpty() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  		MavenExecutionInfo info = <strong class="jxr_keyword">new</strong> MavenExecutionInfo();
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  		<em class="jxr_comment">// Set value (exclude numeric value)</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  		 Set&lt;MavenExecutionAttribute&gt; complementOf = MavenExecutionAttribute.complementOf( MavenExecutionAttribute.PLAN_ORDER);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  		Set&lt;MavenExecutionAttribute&gt; complementOf = MavenExecutionAttribute.complementOf( MavenExecutionAttribute.PLAN_ORDER );
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  		<strong class="jxr_keyword">for</strong> ( MavenExecutionAttribute mavenExecutionAttribute : complementOf ) {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  			info.setValue( mavenExecutionAttribute, <strong class="jxr_keyword">null</strong> );

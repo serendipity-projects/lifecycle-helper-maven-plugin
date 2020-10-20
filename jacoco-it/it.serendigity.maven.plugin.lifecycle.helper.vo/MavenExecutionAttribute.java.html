@@ -10,103 +10,104 @@ import java.util.Set;
  * Maven execution plan attribute
  */
 <span class="fc" id="L12">public enum MavenExecutionAttribute {</span>
-	/** Execution plan order**/
-<span class="fc" id="L14">	PLAN_ORDER(&quot;execution-plan-order-id&quot;, &quot;Plan order&quot;, &quot;Execution plan order id&quot;, false),</span>
+
+	/** Execution plan order **/
+<span class="fc" id="L15">	PLAN_ORDER(&quot;execution-plan-order-id&quot;, &quot;Plan order&quot;, &quot;Execution plan order id&quot;, false),</span>
 	/** Maven lifecycle **/
-<span class="fc" id="L16">	LIFECYCLE(&quot;lifecycle&quot;, &quot;Lifecycle&quot;),</span>
+<span class="fc" id="L17">	LIFECYCLE(&quot;lifecycle&quot;, &quot;Lifecycle&quot;),</span>
 	/** Maven lifecycle phase **/
-<span class="fc" id="L18">	PHASE(&quot;phase&quot;, &quot;Lifecycle phase&quot;),</span>
+<span class="fc" id="L19">	PHASE(&quot;phase&quot;, &quot;Lifecycle phase&quot;),</span>
 	/** Maven plugin **/
-<span class="fc" id="L20">	PLUGIN(&quot;plugin&quot;, &quot;Plugin Artifact Id&quot;),</span>
-	/** Maven plugin version**/
-<span class="fc" id="L22">	PLUGIN_VERSION(&quot;plugin-version&quot;, &quot;Plugin Version&quot;),</span>
-	/** Maven plugin execution id**/
-<span class="fc" id="L24">	PLUGIN_EXECUTION_ID(&quot;plugin-execution&quot;, &quot;Plugin Execution Id&quot;),</span>
-	/** Maven plugin goal**/
-<span class="fc" id="L26">	PLUGIN_GOAL(&quot;goal&quot;, &quot;Plugin goal&quot;),;</span>
+<span class="fc" id="L21">	PLUGIN(&quot;plugin&quot;, &quot;Plugin Artifact Id&quot;),</span>
+	/** Maven plugin version **/
+<span class="fc" id="L23">	PLUGIN_VERSION(&quot;plugin-version&quot;, &quot;Plugin Version&quot;),</span>
+	/** Maven plugin execution id **/
+<span class="fc" id="L25">	PLUGIN_EXECUTION_ID(&quot;plugin-execution&quot;, &quot;Plugin Execution Id&quot;),</span>
+	/** Maven plugin goal **/
+<span class="fc" id="L27">	PLUGIN_GOAL(&quot;goal&quot;, &quot;Plugin goal&quot;),;</span>
 
 	private final String code;
 	private final String shortDescription;
 	private final String description;
 	private final boolean groupByEnabled;
 
-<span class="fc" id="L33">	private MavenExecutionAttribute( String code, String shortDescription, String description, boolean groupByEnabled ) {</span>
-<span class="fc" id="L34">		this.code = code;</span>
-<span class="fc" id="L35">		this.description = description;</span>
-<span class="fc" id="L36">		this.shortDescription = shortDescription;</span>
-<span class="fc" id="L37">		this.groupByEnabled = groupByEnabled;</span>
+<span class="fc" id="L34">	MavenExecutionAttribute( String code, String shortDescription, String description, boolean groupByEnabled ) {</span>
+<span class="fc" id="L35">		this.code = code;</span>
+<span class="fc" id="L36">		this.description = description;</span>
+<span class="fc" id="L37">		this.shortDescription = shortDescription;</span>
+<span class="fc" id="L38">		this.groupByEnabled = groupByEnabled;</span>
 
-<span class="fc" id="L39">	}</span>
+<span class="fc" id="L40">	}</span>
 
-	private MavenExecutionAttribute( String code, String description, boolean groupByEnabled ) {
-<span class="fc" id="L42">		this( code, description, description, groupByEnabled );</span>
+	MavenExecutionAttribute( String code, String description, boolean groupByEnabled ) {
+<span class="fc" id="L43">		this( code, description, description, groupByEnabled );</span>
 
-<span class="fc" id="L44">	}</span>
+<span class="fc" id="L45">	}</span>
 
-	private MavenExecutionAttribute( String code, String description ) {
-<span class="fc" id="L47">		this( code, description, true );</span>
-<span class="fc" id="L48">	}</span>
+	MavenExecutionAttribute( String code, String description ) {
+<span class="fc" id="L48">		this( code, description, true );</span>
+<span class="fc" id="L49">	}</span>
 
 	public static MavenExecutionAttribute fromCode( String name ) {
-<span class="nc" id="L51">		String ignoreCase = name.toLowerCase();</span>
+<span class="nc" id="L52">		String ignoreCase = name.toLowerCase();</span>
 
-<span class="nc" id="L53">		MavenExecutionAttribute[] values = values();</span>
+<span class="nc" id="L54">		MavenExecutionAttribute[] values = values();</span>
 
-<span class="nc bnc" id="L55" title="All 2 branches missed.">		for ( MavenExecutionAttribute mavenExecutionAttribute : values ) {</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">			if ( mavenExecutionAttribute.getCode().equals( ignoreCase ) ) {</span>
-<span class="nc" id="L57">				return mavenExecutionAttribute;</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		for ( MavenExecutionAttribute mavenExecutionAttribute : values ) {</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">			if ( mavenExecutionAttribute.getCode().equals( ignoreCase ) ) {</span>
+<span class="nc" id="L58">				return mavenExecutionAttribute;</span>
 			}
 		}
-<span class="nc" id="L60">		return null;</span>
+<span class="nc" id="L61">		return null;</span>
 	}
 
 	public static Set&lt;MavenExecutionAttribute&gt; complementOf( MavenExecutionAttribute... excludes ) {
-<span class="fc" id="L64">		EnumSet&lt;MavenExecutionAttribute&gt; excludesEnum = EnumSet.noneOf( MavenExecutionAttribute.class );</span>
+<span class="fc" id="L65">		EnumSet&lt;MavenExecutionAttribute&gt; excludesEnum = EnumSet.noneOf( MavenExecutionAttribute.class );</span>
 
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">		if ( excludes != null ) {</span>
-<span class="fc" id="L67">			excludesEnum.addAll( Arrays.asList( excludes ) );</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">		if ( excludes != null ) {</span>
+<span class="fc" id="L68">			excludesEnum.addAll( Arrays.asList( excludes ) );</span>
 		}
 
-<span class="fc" id="L70">		return EnumSet.complementOf( excludesEnum );</span>
+<span class="fc" id="L71">		return EnumSet.complementOf( excludesEnum );</span>
 	}
 
 	public static Set&lt;MavenExecutionAttribute&gt; retrieveGroupByEnabled() {
-<span class="nc" id="L74">		EnumSet&lt;MavenExecutionAttribute&gt; result = EnumSet.noneOf( MavenExecutionAttribute.class );</span>
+<span class="nc" id="L75">		EnumSet&lt;MavenExecutionAttribute&gt; result = EnumSet.noneOf( MavenExecutionAttribute.class );</span>
 
-<span class="nc" id="L76">		MavenExecutionAttribute[] values = MavenExecutionAttribute.values();</span>
+<span class="nc" id="L77">		MavenExecutionAttribute[] values = MavenExecutionAttribute.values();</span>
 
-<span class="nc bnc" id="L78" title="All 2 branches missed.">		for ( MavenExecutionAttribute v : values ) {</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">			if ( v.isGroupByEnabled() ) {</span>
-<span class="nc" id="L80">				result.add( v );</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">		for ( MavenExecutionAttribute v : values ) {</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">			if ( v.isGroupByEnabled() ) {</span>
+<span class="nc" id="L81">				result.add( v );</span>
 			}
 		}
 
-<span class="nc" id="L84">		return result;</span>
+<span class="nc" id="L85">		return result;</span>
 
 	}
 
 	public static List&lt;String&gt; retrieveGroupByEnabledCode() {
-<span class="nc" id="L89">		List&lt;String&gt; result = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L90">		Set&lt;MavenExecutionAttribute&gt; retrieveGroupByEnabled = retrieveGroupByEnabled();</span>
-<span class="nc" id="L91">		retrieveGroupByEnabled.stream().forEach( p -&gt; result.add( p.getCode() ) );</span>
+<span class="nc" id="L90">		List&lt;String&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L91">		Set&lt;MavenExecutionAttribute&gt; retrieveGroupByEnabled = retrieveGroupByEnabled();</span>
+<span class="nc" id="L92">		retrieveGroupByEnabled.stream().forEach( p -&gt; result.add( p.getCode() ) );</span>
 
-<span class="nc" id="L93">		return result;</span>
+<span class="nc" id="L94">		return result;</span>
 	}
 
 	public String getCode() {
-<span class="fc" id="L97">		return code;</span>
+<span class="fc" id="L98">		return code;</span>
 	}
 
 	public String getDescription() {
-<span class="fc" id="L101">		return description;</span>
+<span class="fc" id="L102">		return description;</span>
 	}
 
 	public String getShortDescription() {
-<span class="fc" id="L105">		return shortDescription;</span>
+<span class="fc" id="L106">		return shortDescription;</span>
 	}
 
 	public boolean isGroupByEnabled() {
-<span class="fc" id="L109">		return groupByEnabled;</span>
+<span class="fc" id="L110">		return groupByEnabled;</span>
 	}
 
 }

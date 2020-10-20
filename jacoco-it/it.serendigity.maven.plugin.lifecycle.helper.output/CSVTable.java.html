@@ -10,52 +10,54 @@ public class CSVTable extends TxtOutput {
 
 	private static final String COLUMN_SEPARATOR = &quot;;&quot;;
 
-	public CSVTable(MavenExecutionPlanInfo executionPlanInfo) {
-<span class="fc" id="L14">		super(executionPlanInfo);</span>
+	public CSVTable( MavenExecutionPlanInfo executionPlanInfo ) {
+<span class="fc" id="L14">		super( executionPlanInfo );</span>
 
 <span class="fc" id="L16">	}</span>
 
+	@Override
 	public String createTable()
-
 	{
-<span class="fc" id="L21">		StringBuilder builder = new StringBuilder();</span>
-<span class="fc" id="L22">		MavenExecutionPlanInfo info = getExecutionPlanInfo();</span>
-<span class="pc bpc" id="L23" title="2 of 4 branches missed.">		if (info.getMavenExecutionsInfo() != null &amp;&amp; !info.getMavenExecutionsInfo().isEmpty()) {</span>
-<span class="fc" id="L24">			builder.append(headerRows());</span>
+<span class="fc" id="L21">		super.createTable();</span>
 
-<span class="fc" id="L26">			Collection&lt;MavenExecutionInfo&gt; mavenExecutionsInfo = info.getMavenExecutionsInfo();</span>
-<span class="fc bfc" id="L27" title="All 2 branches covered.">			for (MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo) {</span>
+<span class="fc" id="L23">		StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L24">		MavenExecutionPlanInfo info = getExecutionPlanInfo();</span>
+<span class="pc bpc" id="L25" title="2 of 4 branches missed.">		if ( info.getMavenExecutionsInfo() != null &amp;&amp; !info.getMavenExecutionsInfo().isEmpty() ) {</span>
+<span class="fc" id="L26">			builder.append( headerRows() );</span>
 
-<span class="fc" id="L29">				builder.append(newLineSeparator());</span>
-<span class="fc" id="L30">				builder.append(tableRow(mavenExecutionInfo));</span>
+<span class="fc" id="L28">			Collection&lt;MavenExecutionInfo&gt; mavenExecutionsInfo = info.getMavenExecutionsInfo();</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">			for ( MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo ) {</span>
 
-<span class="fc" id="L32">			}</span>
+<span class="fc" id="L31">				builder.append( newLineSeparator() );</span>
+<span class="fc" id="L32">				builder.append( tableRow( mavenExecutionInfo ) );</span>
+
+<span class="fc" id="L34">			}</span>
 		}
 
-<span class="fc" id="L35">		return builder.toString();</span>
+<span class="fc" id="L37">		return builder.toString();</span>
 
 	}
 
 	protected String headerRows() {
-<span class="fc" id="L40">		StringBuilder output = new StringBuilder()</span>
+<span class="fc" id="L42">		StringBuilder output = new StringBuilder()</span>
 
-<span class="fc" id="L42">				.append(newLineSeparator()).append(headerTitle());</span>
+<span class="fc" id="L44">				.append( newLineSeparator() ).append( headerTitle() );</span>
 
-<span class="fc" id="L44">		return output.toString();</span>
+<span class="fc" id="L46">		return output.toString();</span>
 	}
 
 	@Override
 	protected String createRowFormat() {
-<span class="fc" id="L49">		StringBuilder builder = new StringBuilder();</span>
-<span class="fc" id="L50">		int size = getColumns().size();</span>
+<span class="fc" id="L51">		StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L52">		int size = getColumns().size();</span>
 
-<span class="fc bfc" id="L52" title="All 2 branches covered.">		for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		for ( int i = 0; i &lt; size; i++ ) {</span>
 
-<span class="fc" id="L54">			builder.append(TextUtils.STRING_PLACEHOLDER);</span>
-<span class="fc" id="L55">			builder.append(COLUMN_SEPARATOR);</span>
+<span class="fc" id="L56">			builder.append( TextUtils.STRING_PLACEHOLDER );</span>
+<span class="fc" id="L57">			builder.append( COLUMN_SEPARATOR );</span>
 		}
 
-<span class="fc" id="L58">		return builder.toString();</span>
+<span class="fc" id="L60">		return builder.toString();</span>
 	}
 
 }

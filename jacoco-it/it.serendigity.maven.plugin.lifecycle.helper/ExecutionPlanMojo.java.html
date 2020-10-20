@@ -37,44 +37,50 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 	private MavenExecutionAttribute orderByToElaborate;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-<span class="fc" id="L40">		setOrderByToElaborate(getParamOrderBy());</span>
 
-<span class="fc" id="L42">		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan(true);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">		if ( isParamSkip() ) {</span>
+<span class="fc" id="L42">			getLog().info( &quot;Skipping the execution as per configuration&quot; );</span>
+<span class="fc" id="L43">			return;</span>
+		}
 
-<span class="fc" id="L44">		executionPlanInfo.sort(getOrderByToElaborate());</span>
+<span class="fc" id="L46">		setOrderByToElaborate( getParamOrderBy() );</span>
 
-<span class="fc" id="L46">		TxtTable textTable = new TxtTable(executionPlanInfo,getOrderByToElaborate(), getParamGroupBy());</span>
+<span class="fc" id="L48">		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan( true );</span>
 
-<span class="fc" id="L48">		String table = textTable.createTable();</span>
+<span class="fc" id="L50">		executionPlanInfo.sort( getOrderByToElaborate() );</span>
 
-<span class="fc" id="L50">		handleOutput(table);</span>
-<span class="fc" id="L51">	}</span>
+<span class="fc" id="L52">		TxtTable textTable = new TxtTable( executionPlanInfo, getOrderByToElaborate(), getParamGroupBy() );</span>
+
+<span class="fc" id="L54">		String table = textTable.createTable();</span>
+
+<span class="fc" id="L56">		handleOutput( table );</span>
+<span class="fc" id="L57">	}</span>
 
 	@Override
 	protected String headerParametersString() {
-<span class="fc" id="L55">		String header = super.headerParametersString();</span>
-<span class="fc" id="L56">		header = header + &quot;\nOrder by: &quot; + getOrderByToElaborate();</span>
-<span class="fc" id="L57">		header = header + &quot;\nGroup by: &quot; + getParamGroupBy();</span>
+<span class="fc" id="L61">		String header = super.headerParametersString();</span>
+<span class="fc" id="L62">		header = header + &quot;\nOrder by: &quot; + getOrderByToElaborate();</span>
+<span class="fc" id="L63">		header = header + &quot;\nGroup by: &quot; + getParamGroupBy();</span>
 
-<span class="fc" id="L59">		return header;</span>
+<span class="fc" id="L65">		return header;</span>
 	}
 
 	protected MavenExecutionAttribute getParamOrderBy() {
 
-<span class="fc" id="L64">		return paramOrderBy;</span>
+<span class="fc" id="L70">		return paramOrderBy;</span>
 	}
 
 	protected boolean getParamGroupBy() {
 
-<span class="fc" id="L69">		return paramGroupBy;</span>
+<span class="fc" id="L75">		return paramGroupBy;</span>
 	}
 
-	protected void setOrderByToElaborate(MavenExecutionAttribute orderByToElaborate) {
-<span class="fc" id="L73">		this.orderByToElaborate = orderByToElaborate;</span>
-<span class="fc" id="L74">	}</span>
+	protected void setOrderByToElaborate( MavenExecutionAttribute orderByToElaborate ) {
+<span class="fc" id="L79">		this.orderByToElaborate = orderByToElaborate;</span>
+<span class="fc" id="L80">	}</span>
 
 	protected MavenExecutionAttribute getOrderByToElaborate() {
-<span class="fc" id="L77">		return orderByToElaborate;</span>
+<span class="fc" id="L83">		return orderByToElaborate;</span>
 	}
 
 }
