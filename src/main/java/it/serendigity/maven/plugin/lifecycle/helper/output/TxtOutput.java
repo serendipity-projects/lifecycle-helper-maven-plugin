@@ -15,7 +15,7 @@ public abstract class TxtOutput {
 	private String rowFormat;
 	private MavenExecutionPlanInfo executionPlanInfo;
 
-	public TxtOutput( MavenExecutionPlanInfo executionPlanInfo ) {
+	protected TxtOutput( MavenExecutionPlanInfo executionPlanInfo ) {
 		super();
 
 		this.executionPlanInfo = executionPlanInfo;
