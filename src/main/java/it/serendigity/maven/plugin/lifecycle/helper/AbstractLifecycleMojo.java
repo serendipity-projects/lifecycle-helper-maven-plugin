@@ -77,7 +77,7 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 	/**
 	 * Skip the execution.
 	 *
-	 * @since 0.5.0
+	 * @since 0.4.0
 	 */
 	@Parameter(property = "lifecycle-helper.skip", defaultValue = "false")
 	private boolean paramSkip;
