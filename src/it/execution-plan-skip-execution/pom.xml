@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>it.serendigity.maven.plugins</groupId>
+	<artifactId>test-lifecycle-helper-basic</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<description>
+    		Test execution-plan with tasks from Session
+  	</description>
+	<build>
+
+		<plugins>
+			<plugin>
+				<groupId>it.serendigity.maven.plugins</groupId>
+				<artifactId>lifecycle-helper-maven-plugin</artifactId>
+				<version>@project.version@</version>
+				<executions>
+
+					<execution>
+						<id>display-execution-plan</id>
+						<goals>
+							<goal>execution-plan</goal>
+						</goals>
+
+						<phase>validate</phase>
+						<configuration>
+							<paramSkip>true</paramSkip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -51,12 +51,16 @@ public class ExecutionPlanFileMojo extends AbstractLifecycleMojo {
 	private FILE_FORMAT paramFileFormat;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		if ( isParamSkip() ) {
+			getLog().info( "Skipping the execution as per configuration" );
+			return;
+		}
 
 		String fileName = TextUtils.normalizeFileNameWithExtension( paramOutputFileName, paramFileFormat.name() );
 
 		boolean created = validateOutputDirectory( paramOutputDirectory );
-		if ( getLog().isDebugEnabled() ) {
-			getLog().debug( "Output directory :" + paramOutputDirectory + " (created: " + created + ")" );
+		if ( getLog().isInfoEnabled() ) {
+			getLog().info( "Output directory :" + paramOutputDirectory + " (created: " + created + ")" );
 		}
 
 		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan( false );

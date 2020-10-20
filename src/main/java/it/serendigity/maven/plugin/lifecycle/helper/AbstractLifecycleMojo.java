@@ -58,7 +58,6 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 	 * Allows you to specify which tasks (lifecycle phases or plugin/goal) will be used to calculate the execution
 	 * plan.
 	 * If not specified the run tasks are the phases: post-clean, deploy, site-deploy.
-	 *
 	 * If you set {@link #paramForceTasksFromSession} to true this parameter is ignored!
 	 */
 	@Parameter(property = "lifecycle-helper.tasks", defaultValue = "post-clean,deploy,site-deploy")
@@ -74,6 +73,14 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 	 **/
 	@Parameter(property = "lifecycle-helper.forceTasksFromSession", defaultValue = "false")
 	private boolean paramForceTasksFromSession;
+
+	/**
+	 * Skip the execution.
+	 *
+	 * @since 0.5.0
+	 */
+	@Parameter(property = "lifecycle-helper.skip", defaultValue = "false")
+	private boolean paramSkip;
 
 	protected boolean isParamForceTasksFromSession() {
 		return paramForceTasksFromSession;
@@ -277,6 +284,15 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 
 	protected void setTasksToElaborate( String[] tasksToElaborate ) {
 		this.tasksToElaborate = tasksToElaborate;
+	}
+
+	/**
+	 * Check if the execution should be skipped
+	 *
+	 * @return true to skip
+	 */
+	protected boolean isParamSkip() {
+		return paramSkip;
 	}
 
 }

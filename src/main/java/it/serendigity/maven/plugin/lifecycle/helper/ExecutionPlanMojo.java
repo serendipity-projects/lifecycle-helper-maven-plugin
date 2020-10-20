@@ -37,17 +37,23 @@ public class ExecutionPlanMojo extends AbstractLifecycleMojo {
 	private MavenExecutionAttribute orderByToElaborate;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		setOrderByToElaborate(getParamOrderBy());
 
-		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan(true);
+		if ( isParamSkip() ) {
+			getLog().info( "Skipping the execution as per configuration" );
+			return;
+		}
 
-		executionPlanInfo.sort(getOrderByToElaborate());
+		setOrderByToElaborate( getParamOrderBy() );
 
-		TxtTable textTable = new TxtTable(executionPlanInfo,getOrderByToElaborate(), getParamGroupBy());
+		MavenExecutionPlanInfo executionPlanInfo = calculateExecutionPlan( true );
+
+		executionPlanInfo.sort( getOrderByToElaborate() );
+
+		TxtTable textTable = new TxtTable( executionPlanInfo, getOrderByToElaborate(), getParamGroupBy() );
 
 		String table = textTable.createTable();
 
-		handleOutput(table);
+		handleOutput( table );
 	}
 
 	@Override
@@ -69,7 +75,7 @@ public class ExecutionPlanMojo extends AbstractLifecycleMojo {
 		return paramGroupBy;
 	}
 
-	protected void setOrderByToElaborate(MavenExecutionAttribute orderByToElaborate) {
+	protected void setOrderByToElaborate( MavenExecutionAttribute orderByToElaborate ) {
 		this.orderByToElaborate = orderByToElaborate;
 	}
 
