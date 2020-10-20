@@ -10,24 +10,26 @@ public class CSVTable extends TxtOutput {
 
 	private static final String COLUMN_SEPARATOR = ";";
 
-	public CSVTable(MavenExecutionPlanInfo executionPlanInfo) {
-		super(executionPlanInfo);
+	public CSVTable( MavenExecutionPlanInfo executionPlanInfo ) {
+		super( executionPlanInfo );
 
 	}
 
+	@Override
 	public String createTable()
-
 	{
+		super.createTable();
+
 		StringBuilder builder = new StringBuilder();
 		MavenExecutionPlanInfo info = getExecutionPlanInfo();
-		if (info.getMavenExecutionsInfo() != null && !info.getMavenExecutionsInfo().isEmpty()) {
-			builder.append(headerRows());
+		if ( info.getMavenExecutionsInfo() != null && !info.getMavenExecutionsInfo().isEmpty() ) {
+			builder.append( headerRows() );
 
 			Collection<MavenExecutionInfo> mavenExecutionsInfo = info.getMavenExecutionsInfo();
-			for (MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo) {
+			for ( MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo ) {
 
-				builder.append(newLineSeparator());
-				builder.append(tableRow(mavenExecutionInfo));
+				builder.append( newLineSeparator() );
+				builder.append( tableRow( mavenExecutionInfo ) );
 
 			}
 		}
@@ -39,7 +41,7 @@ public class CSVTable extends TxtOutput {
 	protected String headerRows() {
 		StringBuilder output = new StringBuilder()
 
-				.append(newLineSeparator()).append(headerTitle());
+				.append( newLineSeparator() ).append( headerTitle() );
 
 		return output.toString();
 	}
@@ -49,10 +51,10 @@ public class CSVTable extends TxtOutput {
 		StringBuilder builder = new StringBuilder();
 		int size = getColumns().size();
 
-		for (int i = 0; i < size; i++) {
+		for ( int i = 0; i < size; i++ ) {
 
-			builder.append(TextUtils.STRING_PLACEHOLDER);
-			builder.append(COLUMN_SEPARATOR);
+			builder.append( TextUtils.STRING_PLACEHOLDER );
+			builder.append( COLUMN_SEPARATOR );
 		}
 
 		return builder.toString();

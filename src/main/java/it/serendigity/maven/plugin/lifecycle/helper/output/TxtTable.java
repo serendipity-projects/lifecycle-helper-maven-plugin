@@ -24,10 +24,10 @@ public class TxtTable extends TxtOutput {
 	private static final int COLUMN_SEPARATOR_LENGTH = COLUMN_SEPARATOR.length();
 	private static final int DEFAULT_COLUMN_WIDTH = 50;
 
-	public TxtTable(MavenExecutionPlanInfo executionPlanInfo, MavenExecutionAttribute orderByColumn, boolean groupByAttribute) {
-		super(executionPlanInfo);
+	public TxtTable( MavenExecutionPlanInfo executionPlanInfo, MavenExecutionAttribute orderByColumn, boolean groupByAttribute ) {
+		super( executionPlanInfo );
 
-		this.orderByColumn =orderByColumn;
+		this.orderByColumn = orderByColumn;
 		this.groupByAttribute = groupByAttribute;
 	}
 
@@ -37,25 +37,25 @@ public class TxtTable extends TxtOutput {
 
 		int width = 0;
 
-		for (MavenExecutionAttribute mavenExecutionAttribute : getColumns()) {
+		for ( MavenExecutionAttribute mavenExecutionAttribute : getColumns() ) {
 
-			builder.append(COLUMN_SEPARATOR);
+			builder.append( COLUMN_SEPARATOR );
 
 			int maxStringLength = DEFAULT_COLUMN_WIDTH;
-			if (getSummary() != null) {
-				maxStringLength = Math.max(getSummary().getMaxStringLength(mavenExecutionAttribute),
-						getHeaderTitle(mavenExecutionAttribute).length());
+			if ( getSummary() != null ) {
+				maxStringLength = Math.max( getSummary().getMaxStringLength( mavenExecutionAttribute ),
+						getHeaderTitle( mavenExecutionAttribute ).length() );
 
 			}
-			builder.append(TextUtils.justifyFormat(-maxStringLength));
+			builder.append( TextUtils.justifyFormat( -maxStringLength ) );
 
 			width = width + maxStringLength + COLUMN_SEPARATOR_LENGTH;
 
 		}
-		builder.append(COLUMN_SEPARATOR);
+		builder.append( COLUMN_SEPARATOR );
 		width = width + COLUMN_SEPARATOR_LENGTH;
 
-		setRowLength(width);
+		setRowLength( width );
 
 		return builder.toString();
 	}
@@ -64,37 +64,39 @@ public class TxtTable extends TxtOutput {
 		return groupByAttribute;
 	}
 
+	@Override
 	public String createTable()
 
 	{
+		super.createTable();
 		StringBuilder builder = new StringBuilder();
 
 		MavenExecutionPlanInfo info = getExecutionPlanInfo();
 
-		if (info.getMavenExecutionsInfo() != null && !info.getMavenExecutionsInfo().isEmpty()) {
+		if ( info.getMavenExecutionsInfo() != null && !info.getMavenExecutionsInfo().isEmpty() ) {
 
-			builder.append(headerRows());
+			builder.append( headerRows() );
 
 			String oldGroup = "";
 			boolean columnGroupByEnabled = getOrderByColumn().isGroupByEnabled();
 
 			Collection<MavenExecutionInfo> mavenExecutionsInfo = info.getMavenExecutionsInfo();
-			for (MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo) {
+			for ( MavenExecutionInfo mavenExecutionInfo : mavenExecutionsInfo ) {
 
 				String currentGroup = isGroupByColumnSelected()
-						? String.valueOf(mavenExecutionInfo.getValueOrEmpty( getOrderByColumn()))
+						? String.valueOf( mavenExecutionInfo.getValueOrEmpty( getOrderByColumn() ) )
 						: "";
 
-				if (columnGroupByEnabled && currentGroup != null && !currentGroup.equals(oldGroup)) {
-					builder.append(newLineSeparator());
+				if ( columnGroupByEnabled && !currentGroup.equals( oldGroup ) ) {
+					builder.append( newLineSeparator() );
 
-					builder.append(newLineSeparator())
-							.append(titleLine(getOrderByColumn().getDescription() + ": " + currentGroup));
+					builder.append( newLineSeparator() )
+							.append( titleLine( getOrderByColumn().getDescription() + ": " + currentGroup ) );
 
 				}
 
-				builder.append(newLineSeparator());
-				builder.append(tableRow(mavenExecutionInfo));
+				builder.append( newLineSeparator() );
+				builder.append( tableRow( mavenExecutionInfo ) );
 
 				oldGroup = currentGroup;
 			}
@@ -108,11 +110,12 @@ public class TxtTable extends TxtOutput {
 	protected Set<MavenExecutionAttribute> createColumns() {
 		Set<MavenExecutionAttribute> result = null;
 
-		if (isGroupByColumnSelected()) {
-			result = MavenExecutionAttribute.complementOf(getOrderByColumn());
-		} else {
+		if ( isGroupByColumnSelected() ) {
+			result = MavenExecutionAttribute.complementOf( getOrderByColumn() );
+		}
+		else {
 
-			result = EnumSet.allOf(MavenExecutionAttribute.class);
+			result = EnumSet.allOf( MavenExecutionAttribute.class );
 
 		}
 		return result;
@@ -129,11 +132,11 @@ public class TxtTable extends TxtOutput {
 	}
 
 	protected String headerRows() {
-		StringBuilder output = new StringBuilder().append(headerRowSeparator())
+		StringBuilder output = new StringBuilder().append( headerRowSeparator() )
 
-				.append(newLineSeparator()).append(headerTitle())
+				.append( newLineSeparator() ).append( headerTitle() )
 
-				.append(headerRowSeparator());
+				.append( headerRowSeparator() );
 
 		return output.toString();
 	}
@@ -144,25 +147,25 @@ public class TxtTable extends TxtOutput {
 		Object[] columnTitle = new String[getColumns().size()];
 
 		int count = 0;
-		for (MavenExecutionAttribute mavenExecutionAttribute : getColumns()) {
-			columnTitle[count] = getHeaderTitle(mavenExecutionAttribute);
+		for ( MavenExecutionAttribute mavenExecutionAttribute : getColumns() ) {
+			columnTitle[count] = getHeaderTitle( mavenExecutionAttribute );
 			count++;
 		}
 
-		return String.format(getRowFormat(), columnTitle);
+		return String.format( getRowFormat(), columnTitle );
 	}
 
 	private String headerRowSeparator() {
-		StringBuilder output = new StringBuilder().append(newLineSeparator()).append(headerSeparator());
+		StringBuilder output = new StringBuilder().append( newLineSeparator() ).append( headerSeparator() );
 
 		return output.toString();
 	}
 
 	private String headerSeparator() {
-		return Strings.repeat("-", getRowLength());
+		return Strings.repeat( "-", getRowLength() );
 	}
 
-	private void setRowLength(int rowLength) {
+	private void setRowLength( int rowLength ) {
 		this.rowLength = rowLength;
 	}
 
@@ -170,7 +173,7 @@ public class TxtTable extends TxtOutput {
 		return rowLength;
 	}
 
-	protected String titleLine(String key) {
-		return MessageUtils.buffer().strong(key) + " " + Strings.repeat(".", getRowLength() - key.length());
+	protected String titleLine( String key ) {
+		return MessageUtils.buffer().strong( key ) + " " + Strings.repeat( ".", getRowLength() - key.length() );
 	}
 }

@@ -16,13 +16,31 @@ public abstract class TxtOutput {
 	private MavenExecutionPlanInfo executionPlanInfo;
 
 	protected TxtOutput( MavenExecutionPlanInfo executionPlanInfo ) {
-		super();
 
 		this.executionPlanInfo = executionPlanInfo;
 
+	}
+
+	/**
+	 * Init tables variables: columns, rowformat, ...
+	 *
+	 * @see #createColumns()
+	 * @see #createRowFormat()
+	 */
+	protected void initTable() {
 		this.columns = createColumns();
 
 		this.rowFormat = createRowFormat();
+	}
+
+	/**
+	 * Override this method and call super to initialize the table
+	 *
+	 * @return
+	 */
+	protected String createTable() {
+		initTable();
+		return "";
 	}
 
 	protected abstract String createRowFormat();
