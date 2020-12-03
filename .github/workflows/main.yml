@@ -23,9 +23,16 @@ jobs:
          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
          restore-keys: |
           ${{ runner.os }}-maven-
+      - name: Cache sonar
+        uses: actions/cache@v2
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-sonar-
       # Build Maven       
       - name: Build with Maven
-        run: mvn -B verify 
+        run: mvn -B clean verify 
       # Run Sonar
       - name: Run sonar analysis
         env:
