@@ -29,5 +29,6 @@ jobs:
       # Run Sonar
       - name: Run sonar analysis
         env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          SONAR_TOKEN: ${{ secrets.SONAR }}
         run: mvn sonar:sonar -Dsonar.organization=serendipity-projects -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
