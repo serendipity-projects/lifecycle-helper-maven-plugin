@@ -100,8 +100,7 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 			String[] tasks = calculateTasksToElaborate();
 			setTasksToElaborate( tasks );
 
-			MavenExecutionPlan calculateExecutionPlan = lifecycleExecutor.calculateExecutionPlan( session,
-					tasks );
+			MavenExecutionPlan calculateExecutionPlan = lifecycleExecutor.calculateExecutionPlan( session, tasks );
 			List<MojoExecution> mojoExecutions = calculateExecutionPlan.getMojoExecutions();
 
 			int order = 0;
