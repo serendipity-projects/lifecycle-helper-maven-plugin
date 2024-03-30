@@ -15,8 +15,8 @@ import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
 
 public class TxtTable extends TxtOutput {
 
-	private boolean groupByAttribute;
-	private MavenExecutionAttribute orderByColumn;
+	private final boolean groupByAttribute;
+	private final MavenExecutionAttribute orderByColumn;
 
 	private int rowLength;
 

@@ -131,7 +131,7 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 			List<String> tasksFromSession = retrieveTasksFromSession();
 
 			if ( !tasksFromSession.isEmpty() ) {
-				result = tasksFromSession.toArray( new String[tasksFromSession.size()] );
+				result = tasksFromSession.toArray(new String[0]);
 			}
 		}
 		else {
@@ -141,10 +141,9 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 	}
 
 	protected boolean validateMavenExecution( MavenExecutionInfo info ) {
-		boolean result = true;
-
 		getLog().debug( "Validate maven execution ..." );
-		result = validatePlugin( info, getPluginsToElaborate() );
+
+		boolean result = validatePlugin( info, getPluginsToElaborate() );
 
 		if ( getLog().isDebugEnabled() ) {
 
@@ -256,8 +255,8 @@ public abstract class AbstractLifecycleMojo extends AbstractMojo {
 						if ( task instanceof LifecycleTask ) {
 							sessionTasksResult.add( ( (LifecycleTask) task ).getLifecyclePhase() );
 						}
-						else if ( task instanceof GoalTask ) {
-							sessionTasksResult.add( ( (GoalTask) task ).toString() );
+						else if ( task instanceof GoalTask goalTask) {
+							sessionTasksResult.add( ( goalTask ).toString() );
 						}
 						else {
 							getLog().warn( "Task is not recognized. Task is ignored --> " + task + " " + task.getClass() );

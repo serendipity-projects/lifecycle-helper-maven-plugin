@@ -13,7 +13,7 @@ public abstract class TxtOutput {
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator" );
 	private Set<MavenExecutionAttribute> columns;
 	private String rowFormat;
-	private MavenExecutionPlanInfo executionPlanInfo;
+	private final MavenExecutionPlanInfo executionPlanInfo;
 
 	protected TxtOutput( MavenExecutionPlanInfo executionPlanInfo ) {
 
@@ -22,7 +22,7 @@ public abstract class TxtOutput {
 	}
 
 	/**
-	 * Init tables variables: columns, rowformat, ...
+	 * Init tables variables: columns, rowFormat, ...
 	 *
 	 * @see #createColumns()
 	 * @see #createRowFormat()

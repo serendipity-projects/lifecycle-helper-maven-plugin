@@ -40,7 +40,6 @@ public class CSVTable extends TxtOutput {
 
 	protected String headerRows() {
 		StringBuilder output = new StringBuilder()
-
 				.append( newLineSeparator() ).append( headerTitle() );
 
 		return output.toString();
