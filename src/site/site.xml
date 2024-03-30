@@ -1,12 +1,17 @@
 <project xmlns="http://maven.apache.org/DECORATION/1.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd"
-        name="${project.name}">
+         name="${project.name}">
 
-<bannerRight>
-           <name>Lifecycle helper maven plugin</name>
-           <src>/images/project_logo.jpeg</src>
-           <href>/index.html</href>
- </bannerRight>
+    <bannerLeft>
+        <name> </name>
+        <src>images/opensourceproject_logo.jpeg</src>
+        <alt>Open source projects by Serendipity.</alt>
+    </bannerLeft>
+
+    <bannerRight>
+        <src>/images/project_logo.jpeg</src>
+        <href>/index.html</href>
+    </bannerRight>
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
