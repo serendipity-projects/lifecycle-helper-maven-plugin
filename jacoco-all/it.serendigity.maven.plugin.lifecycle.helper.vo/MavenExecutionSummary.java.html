@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MavenExecutionSummary.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper.vo</a> &gt; <span class="el_source">MavenExecutionSummary.java</span></div><h1>MavenExecutionSummary.java</h1><pre class="source lang-java linenums">package it.serendigity.maven.plugin.lifecycle.helper.vo;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class MavenExecutionSummary {
+
+	private Map&lt;String, Integer&gt; attributeMaxStringLength;
+
+<span class="fc" id="L10">	public MavenExecutionSummary() {</span>
+<span class="fc" id="L11">		attributeMaxStringLength = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L12">	}</span>
+
+	public void updateSummary( MavenExecutionInfo executionInfo ) {
+
+<span class="fc" id="L16">		updateMaxStringLength( executionInfo );</span>
+<span class="fc" id="L17">	}</span>
+
+	protected void updateMaxStringLength( MavenExecutionInfo executionInfo ) {
+
+<span class="fc" id="L21">		MavenExecutionAttribute[] values = MavenExecutionAttribute.values();</span>
+
+<span class="fc bfc" id="L23" title="All 2 branches covered.">		for ( MavenExecutionAttribute mavenExecutionAttribute : values ) {</span>
+
+<span class="fc" id="L25">			String key = mavenExecutionAttribute.getCode();</span>
+
+<span class="fc" id="L27">			int newStringLength = executionInfo.getStringLength( mavenExecutionAttribute );</span>
+<span class="fc" id="L28">			Integer oldMaxStringLength = attributeMaxStringLength.get( key );</span>
+
+<span class="fc bfc" id="L30" title="All 4 branches covered.">			if ( oldMaxStringLength == null || oldMaxStringLength.compareTo( newStringLength ) &lt; 0 ) {</span>
+<span class="fc" id="L31">				attributeMaxStringLength.put( key, newStringLength );</span>
+			}
+
+		}
+
+<span class="fc" id="L36">	}</span>
+
+	public int getMaxStringLength( MavenExecutionAttribute attribute ) {
+		
+
+<span class="fc" id="L41">		return attributeMaxStringLength.get( attribute.getCode() );</span>
+	
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

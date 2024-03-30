@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TxtOutput.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lifecycle Helper Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">it.serendigity.maven.plugin.lifecycle.helper.output</a> &gt; <span class="el_source">TxtOutput.java</span></div><h1>TxtOutput.java</h1><pre class="source lang-java linenums">package it.serendigity.maven.plugin.lifecycle.helper.output;
+
+import java.util.EnumSet;
+import java.util.Set;
+
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionAttribute;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionInfo;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionPlanInfo;
+import it.serendigity.maven.plugin.lifecycle.helper.vo.MavenExecutionSummary;
+
+public abstract class TxtOutput {
+
+<span class="fc" id="L13">	private static final String LINE_SEPARATOR = System.getProperty( &quot;line.separator&quot; );</span>
+	private Set&lt;MavenExecutionAttribute&gt; columns;
+	private String rowFormat;
+	private MavenExecutionPlanInfo executionPlanInfo;
+
+<span class="fc" id="L18">	protected TxtOutput( MavenExecutionPlanInfo executionPlanInfo ) {</span>
+
+<span class="fc" id="L20">		this.executionPlanInfo = executionPlanInfo;</span>
+
+<span class="fc" id="L22">	}</span>
+
+	/**
+	 * Init tables variables: columns, rowformat, ...
+	 *
+	 * @see #createColumns()
+	 * @see #createRowFormat()
+	 */
+	protected void initTable() {
+<span class="fc" id="L31">		this.columns = createColumns();</span>
+
+<span class="fc" id="L33">		this.rowFormat = createRowFormat();</span>
+<span class="fc" id="L34">	}</span>
+
+	/**
+	 * Override this method and call super to initialize the table
+	 *
+	 * @return empty string
+	 */
+	protected String createTable() {
+<span class="fc" id="L42">		initTable();</span>
+<span class="fc" id="L43">		return &quot;&quot;;</span>
+	}
+
+	protected abstract String createRowFormat();
+
+	protected String getHeaderTitle( MavenExecutionAttribute mavenExecutionAttribute ) {
+<span class="fc" id="L49">		return mavenExecutionAttribute.getShortDescription().toUpperCase();</span>
+	}
+
+	protected MavenExecutionSummary getSummary() {
+<span class="fc" id="L53">		return executionPlanInfo.getSummary();</span>
+	}
+
+	protected Set&lt;MavenExecutionAttribute&gt; createColumns() {
+<span class="fc" id="L57">		return EnumSet.allOf( MavenExecutionAttribute.class );</span>
+	}
+
+	protected String headerTitle() {
+
+<span class="fc" id="L62">		Object[] columnTitle = new String[getColumns().size()];</span>
+
+<span class="fc" id="L64">		int count = 0;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">		for ( MavenExecutionAttribute mavenExecutionAttribute : getColumns() ) {</span>
+<span class="fc" id="L66">			columnTitle[count] = getHeaderTitle( mavenExecutionAttribute );</span>
+<span class="fc" id="L67">			count++;</span>
+<span class="fc" id="L68">		}</span>
+
+<span class="fc" id="L70">		return String.format( getRowFormat(), columnTitle );</span>
+	}
+
+	protected String tableRow( MavenExecutionInfo info ) {
+
+<span class="fc" id="L75">		Object[] rowValues = new Object[getColumns().size()];</span>
+
+<span class="fc" id="L77">		int count = 0;</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">		for ( MavenExecutionAttribute mavenExecutionAttribute : getColumns() ) {</span>
+<span class="fc" id="L79">			rowValues[count] = info.getValueOrEmpty( mavenExecutionAttribute );</span>
+<span class="fc" id="L80">			count++;</span>
+<span class="fc" id="L81">		}</span>
+
+<span class="fc" id="L83">		return String.format( getRowFormat(), rowValues );</span>
+
+	}
+
+	public Set&lt;MavenExecutionAttribute&gt; getColumns() {
+<span class="fc" id="L88">		return columns;</span>
+	}
+
+	public static String newLineSeparator() {
+<span class="fc" id="L92">		return LINE_SEPARATOR;</span>
+	}
+
+	public String getRowFormat() {
+<span class="fc" id="L96">		return rowFormat;</span>
+	}
+
+	protected MavenExecutionPlanInfo getExecutionPlanInfo() {
+<span class="fc" id="L100">		return executionPlanInfo;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
