@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,AbstractLifecycleMojo,14,306,5,29,3,78,5,28,0,16
+Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,AbstractLifecycleMojo,14,305,5,29,3,77,5,28,0,16
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,ExecutionPlanMojo,0,67,0,2,0,20,0,8,0,7
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,ExecutionPlanFileMojo,5,121,1,7,2,30,1,7,0,4
 Lifecycle Helper Maven Plugin,it.serendigity.maven.plugin.lifecycle.helper,ExecutionPlanFileMojo.FILE_FORMAT,0,9,0,0,0,2,0,1,0,1

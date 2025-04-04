@@ -40,25 +40,24 @@ public class CSVTable extends TxtOutput {
 
 	protected String headerRows() {
 <span class="fc" id="L42">		StringBuilder output = new StringBuilder()</span>
+<span class="fc" id="L43">				.append( newLineSeparator() ).append( headerTitle() );</span>
 
-<span class="fc" id="L44">				.append( newLineSeparator() ).append( headerTitle() );</span>
-
-<span class="fc" id="L46">		return output.toString();</span>
+<span class="fc" id="L45">		return output.toString();</span>
 	}
 
 	@Override
 	protected String createRowFormat() {
-<span class="fc" id="L51">		StringBuilder builder = new StringBuilder();</span>
-<span class="fc" id="L52">		int size = getColumns().size();</span>
+<span class="fc" id="L50">		StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L51">		int size = getColumns().size();</span>
 
-<span class="fc bfc" id="L54" title="All 2 branches covered.">		for ( int i = 0; i &lt; size; i++ ) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		for ( int i = 0; i &lt; size; i++ ) {</span>
 
-<span class="fc" id="L56">			builder.append( TextUtils.STRING_PLACEHOLDER );</span>
-<span class="fc" id="L57">			builder.append( COLUMN_SEPARATOR );</span>
+<span class="fc" id="L55">			builder.append( TextUtils.STRING_PLACEHOLDER );</span>
+<span class="fc" id="L56">			builder.append( COLUMN_SEPARATOR );</span>
 		}
 
-<span class="fc" id="L60">		return builder.toString();</span>
+<span class="fc" id="L59">		return builder.toString();</span>
 	}
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
