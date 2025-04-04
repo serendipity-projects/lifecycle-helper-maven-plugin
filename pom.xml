@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>it.serendigity.maven.parent</groupId>
 		<artifactId>sndp-public-base-parent</artifactId>
-		<version>1.2.1</version>
+		<version>1.2.4</version>
 	</parent>
 
 	<groupId>it.serendigity.maven.plugins</groupId>
@@ -22,7 +22,7 @@
 
 	<url>https://serendipity-projects.github.io/${project.artifactId}</url>
 	<properties>
-		<plugin.maven.version>3.9.6</plugin.maven.version>
+		<plugin.maven.version>3.9.9</plugin.maven.version>
 	</properties>
 
 	<dependencies>
@@ -63,16 +63,22 @@
 		</dependency>
 
 		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.14.0</version>
+			<version>3.17.0</version>
 		</dependency>
 
 
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
-			<version>1.9.4</version>
+			<version>1.10.1</version>
 		</dependency>
 
 
