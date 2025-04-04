@@ -1,202 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>it.serendigity.maven.parent</groupId>
-		<artifactId>sndp-public-base-parent</artifactId>
-		<version>1.2.4</version>
-	</parent>
+    <parent>
+        <groupId>it.serendigity.maven.parent</groupId>
+        <artifactId>sndp-public-base-parent</artifactId>
+        <version>1.2.4</version>
+    </parent>
 
-	<groupId>it.serendigity.maven.plugins</groupId>
-	<artifactId>lifecycle-helper-maven-plugin</artifactId>
-	<version>1.2.3-SNAPSHOT</version>
-	<packaging>maven-plugin</packaging>
+    <groupId>it.serendigity.maven.plugins</groupId>
+    <artifactId>lifecycle-helper-maven-plugin</artifactId>
+    <version>1.2.3-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
 
-	<name>Lifecycle Helper Maven Plugin</name>
-	<description>A Maven 3.x plugin to inspect the lifecycle of your project.
-    The plugin provides goals aimed at helping to inspect your project lifecycle phases and
-    if a plugin-goal is executed and when. It includes the ability to list all plugin-goal mapping to executed phases
-    and group the execution plan result by lifecycle/phases/plugin/goal
+    <name>Lifecycle Helper Maven Plugin</name>
+    <description>A Maven 3.x plugin to inspect the lifecycle of your project.
+        The plugin provides goals aimed at helping to inspect your project lifecycle phases and
+        if a plugin-goal is executed and when. It includes the ability to list all plugin-goal mapping to executed
+        phases
+        and group the execution plan result by lifecycle/phases/plugin/goal
     </description>
 
-	<url>https://serendipity-projects.github.io/${project.artifactId}</url>
-	<properties>
-		<plugin.maven.version>3.9.9</plugin.maven.version>
-	</properties>
+    <url>https://serendipity-projects.github.io/${project.artifactId}</url>
 
-	<dependencies>
+    <properties>
+        <plugin.maven.version>3.9.9</plugin.maven.version>
+        <sonar.organization>serendipity-projects</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
 
-
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>${plugin.maven.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-core</artifactId>
-			<version>${plugin.maven.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.plugin-tools</groupId>
-			<artifactId>maven-plugin-annotations</artifactId>
-			<version>3.9.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.maven.shared</groupId>
-			<artifactId>maven-shared-utils</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-
-		<!-- reporting API -->
-		<dependency>
-			<groupId>org.apache.maven.reporting</groupId>
-			<artifactId>maven-reporting-impl</artifactId>
-			<version>3.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.reporting</groupId>
-			<artifactId>maven-reporting-api</artifactId>
-			<version>3.1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>jakarta.annotation</groupId>
-			<artifactId>jakarta.annotation-api</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.17.0</version>
-		</dependency>
+    <dependencies>
 
 
-		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.10.1</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>${plugin.maven.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>${plugin.maven.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <version>3.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-shared-utils</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+        <!-- reporting API -->
+        <dependency>
+            <groupId>org.apache.maven.reporting</groupId>
+            <artifactId>maven-reporting-impl</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.reporting</groupId>
+            <artifactId>maven-reporting-api</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.17.0</version>
+        </dependency>
 
 
-		<dependency>
-			<groupId>nl.jqno.equalsverifier</groupId>
-			<artifactId>equalsverifier</artifactId>
-		</dependency>
-
-	</dependencies>
-
-	<build>
-		<plugins>
-
-			<plugin>
-				<artifactId>maven-plugin-plugin</artifactId>
-				<version>3.11.0</version>
-				<!--<configuration>
-					<skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
-				</configuration>-->
-				<executions>
-					<execution>
-						<id>mojo-descriptor</id>
-						<goals>
-							<goal>descriptor</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>help-goal</id>
-						<goals>
-							<goal>helpmojo</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-invoker-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<pomIncludes>
-						<pomInclude>*</pomInclude>
-					</pomIncludes>
-					<debug>false</debug>
-					<cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
-					<writeJunitReport>true</writeJunitReport>
-					<projectsDirectory>src/it</projectsDirectory>
-					<settingsFile>src/it/settings.xml</settingsFile>
-					<postBuildHookScript>verify.groovy</postBuildHookScript>
-				</configuration>
-				<executions>
-					<execution>
-						<id>integration-test-with-invoker</id>
-						<goals>
-							<goal>install</goal>
-							<!-- <goal>integration-test</goal> <goal>verify</goal> -->
-							<goal>run</goal>
-
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-	</build>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<artifactId>maven-invoker-plugin</artifactId>
-				<version>3.5.1</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>report</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-plugin-report-plugin</artifactId>
-				<version>3.10.2</version>
-			</plugin>
-		</plugins>
-	</reporting>
-
-	<profiles>
-		<!-- DEPLOY SITE PROFILE -->
-		<!-- ... LOCAL -->
-		<profile>
-			<id>site-local</id>
-
-			<distributionManagement>
-				<site>
-					<id>deploy-site-local</id>
-					<name>Site deployments</name>
-					<url>file://${site.deploy.rootdir}/${project.artifactId}/</url>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.10.1</version>
+        </dependency>
 
 
-				</site>
-			</distributionManagement>
+        <dependency>
+            <groupId>nl.jqno.equalsverifier</groupId>
+            <artifactId>equalsverifier</artifactId>
+        </dependency>
 
-		</profile>
+    </dependencies>
 
-		<!-- ... GITHUB -->
-		<profile>
-			<id>site-github</id>
+    <build>
+        <plugins>
 
-			<distributionManagement>
-				<site>
-					<id>deploy-site-github</id>
-					<name>Site deploy github</name>
-					<url>scm:git:https://git@github.com/serendipity-projects/${project.artifactId}/</url>
-				</site>
-			</distributionManagement>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.11.0</version>
+                <!--<configuration>
+                    <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
+                </configuration>-->
+                <executions>
+                    <execution>
+                        <id>mojo-descriptor</id>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>help-goal</id>
+                        <goals>
+                            <goal>helpmojo</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
-		</profile>
+            <plugin>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <pomIncludes>
+                        <pomInclude>*</pomInclude>
+                    </pomIncludes>
+                    <debug>false</debug>
+                    <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+                    <writeJunitReport>true</writeJunitReport>
+                    <projectsDirectory>src/it</projectsDirectory>
+                    <settingsFile>src/it/settings.xml</settingsFile>
+                    <postBuildHookScript>verify.groovy</postBuildHookScript>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test-with-invoker</id>
+                        <goals>
+                            <goal>install</goal>
+                            <!-- <goal>integration-test</goal> <goal>verify</goal> -->
+                            <goal>run</goal>
 
-	</profiles>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <version>3.5.1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-report-plugin</artifactId>
+                <version>3.10.2</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <profiles>
+        <!-- DEPLOY SITE PROFILE -->
+        <!-- ... LOCAL -->
+        <profile>
+            <id>site-local</id>
+
+            <distributionManagement>
+                <site>
+                    <id>deploy-site-local</id>
+                    <name>Site deployments</name>
+                    <url>file://${site.deploy.rootdir}/${project.artifactId}/</url>
+
+
+                </site>
+            </distributionManagement>
+
+        </profile>
+
+        <!-- ... GITHUB -->
+        <profile>
+            <id>site-github</id>
+
+            <distributionManagement>
+                <site>
+                    <id>deploy-site-github</id>
+                    <name>Site deploy github</name>
+                    <url>scm:git:https://git@github.com/serendipity-projects/${project.artifactId}/</url>
+                </site>
+            </distributionManagement>
+
+        </profile>
+
+    </profiles>
 </project>
