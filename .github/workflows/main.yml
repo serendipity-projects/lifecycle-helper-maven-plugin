@@ -41,10 +41,10 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
-      - name: Build and analyze
+      - name: SONAR Analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=serendipity-projects_lifecycle-helper-maven-plugin
           # Codecov
-      - name: Code coverage 
+      - name: CODECOV Code coverage
         run: bash <(curl -s https://codecov.io/bash)
