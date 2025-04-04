@@ -10,7 +10,7 @@
 
 	<groupId>it.serendigity.maven.plugins</groupId>
 	<artifactId>lifecycle-helper-maven-plugin</artifactId>
-	<version>1.2.2-SNAPSHOT</version>
+	<version>1.2.2</version>
 	<packaging>maven-plugin</packaging>
 
 	<name>Lifecycle Helper Maven Plugin</name>
